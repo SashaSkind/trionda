@@ -127,18 +127,6 @@ function SketchyMap({ width = 1640, height = 980, highlightId = 'nyc', onHover }
           svg.appendChild(t);
         });
 
-        // Some scribbled ocean swells for character
-        for (let i = 0; i < 18; i++) {
-          const cx = (i % 6) * (width / 6) + 40;
-          const cy = (i < 6 ? 50 : i < 12 ? height - 110 : height - 50) + (i % 2) * 14;
-          const node = rc.path(
-            `M ${cx} ${cy} q 14 -8 28 0 t 28 0 t 28 0`,
-            { roughness: 2.2, bowing: 2, stroke: TRI.blue, strokeWidth: 0.9 }
-          );
-          node.setAttribute('opacity', '0.35');
-          svg.appendChild(node);
-        }
-
         // Project pins
         const stops = STADIUMS.map(s => {
           const [x, y] = projection([s.lon, s.lat]);
@@ -276,26 +264,24 @@ function Logo({ size = 22 }) {
   );
 }
 
-function ChatFab({ side = 'left', label = 'Ask Trionda', tone = 'ink' }) {
-  const bg = tone === 'red' ? TRI.red : TRI.ink;
+function ChatFab({ side = 'right', label = 'Ask Trionda' }) {
   return (
     <div style={{
       position: 'absolute', bottom: 26, [side]: 26, zIndex: 6,
-      display: 'flex', alignItems: 'center', gap: 10,
+      display: 'flex', alignItems: 'center',
     }}>
-      <div className="chat-fab" style={{ background: bg, color: 'white' }}>
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M 3 6 Q 3 3 6 3 L 18 3 Q 21 3 21 6 L 21 14 Q 21 17 18 17 L 11 17 L 6 21 L 6 17 Q 3 17 3 14 Z"/>
-          <circle cx="8" cy="10" r="0.8" fill="white"/>
-          <circle cx="12" cy="10" r="0.8" fill="white"/>
-          <circle cx="16" cy="10" r="0.8" fill="white"/>
-        </svg>
-      </div>
       <div style={{
-        background: 'white', border: `1.8px solid ${TRI.ink}`, borderRadius: 999,
-        padding: '6px 14px', fontFamily: 'Caveat', fontSize: 20,
-        boxShadow: '2px 2px 0 ' + TRI.ink,
-      }}>{label}</div>
+        display: 'flex', alignItems: 'center', gap: 10,
+        background: TRI.green, border: `2.4px solid ${TRI.ink}`, borderRadius: 999,
+        padding: '10px 20px 10px 14px',
+        boxShadow: `3px 3px 0 ${TRI.ink}`,
+        cursor: 'pointer',
+      }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M 3 6 Q 3 3 6 3 L 18 3 Q 21 3 21 6 L 21 14 Q 21 17 18 17 L 11 17 L 6 21 L 6 17 Q 3 17 3 14 Z"/>
+        </svg>
+        <span style={{ fontFamily: 'Caveat', fontSize: 20, color: 'white', fontWeight: 600, lineHeight: 1 }}>{label}</span>
+      </div>
     </div>
   );
 }
@@ -310,10 +296,7 @@ function TopBar({ title, right }) {
       {title && <div className="hand squiggle" style={{ fontSize: 22 }}>{title}</div>}
       <div style={{ display: 'flex', gap: 12 }}>
         {right || (
-          <>
-            <button className="btn-sketch">🇬🇧 EN</button>
-            <button className="btn-sketch solid">Sign in</button>
-          </>
+          <button className="btn-sketch">🇬🇧 EN</button>
         )}
       </div>
     </div>
@@ -372,15 +355,7 @@ function MapHoverDrawer() {
       </div>
 
       <ChatFab/>
-      <div className="note" style={{ top: 92, right: 50 }}>
-        <span className="arrow">↘</span>
-        hand-drawn over real geo<br/>
-        (d3-geo + rough.js) · drag to pan
-      </div>
-      <div className="note" style={{ bottom: 230, left: 50 }}>
-        ← hover/tap a pin →<br/>
-        drawer previews that stadium
-      </div>
+
     </div>
   );
 }
