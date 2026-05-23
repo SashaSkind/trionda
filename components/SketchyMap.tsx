@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function SketchyMap({
-  width = 1640, height = 980,
+  width = 1640, height = 1320,
   highlightId = 'nyc',
   onHover,
   onSelect,
@@ -55,7 +55,7 @@ export default function SketchyMap({
           .center([0, 38])
           .parallels([25, 50])
           .scale(width * 1.0)
-          .translate([width / 2, height / 2 + 40])
+          .translate([width / 2, height / 2 - 140])
 
         const geoPath = d3.geoPath(projection)
 
@@ -164,7 +164,8 @@ export default function SketchyMap({
     if (!projected || !containerRef.current) return
     const el = containerRef.current
     el.scrollLeft = Math.max(0, (width - el.clientWidth) / 2)
-    el.scrollTop = Math.max(0, (height - el.clientHeight) / 2 - 20)
+    // offset upward so the US sits in view, not southern Mexico
+    el.scrollTop = Math.max(0, (height - el.clientHeight) / 2 - 200)
   }, [projected, width, height])
 
   const handlePinInteract = (s: Stadium & { x: number; y: number }) => {
