@@ -16,9 +16,33 @@ export interface Stadium {
   language: string
   weather: string
   isFinal?: boolean
+  // Per-stadium subreddit list used by the Scout agent for Exa domain filtering.
+  // Injected from SUBREDDITS_BY_ID below — the raw data array stays metadata-only.
+  subreddits: string[]
 }
 
-export const STADIUMS: Stadium[] = [
+// Per-stadium-id list of subreddits the Scout agent searches via Exa.
+// Add or remove subs here; the agent will pick them up immediately.
+const SUBREDDITS_BY_ID: Record<string, string[]> = {
+  lax: ['LosAngeles', 'AskLosAngeles', 'soccer', 'LAGalaxy'],
+  nyc: ['nyc', 'AskNYC', 'newjersey', 'soccer', 'NYCFC'],
+  dal: ['Dallas', 'DFW', 'fctexas', 'soccer'],
+  atl: ['Atlanta', 'AtlantaUnited', 'soccer'],
+  mia: ['Miami', 'florida', 'IntermiamiCF', 'soccer'],
+  hou: ['houston', 'HoustonDynamo', 'soccer'],
+  sfo: ['bayarea', 'sanfrancisco', 'sanjose', 'SJEarthquakes', 'soccer'],
+  bos: ['boston', 'NERevolution', 'soccer'],
+  phi: ['philadelphia', 'PhillyUnion', 'soccer'],
+  kc: ['kansascity', 'SportingKC', 'soccer'],
+  sea: ['SeattleWA', 'Seattle', 'SoundersFC', 'soccer'],
+  tor: ['toronto', 'askTO', 'TorontoFC', 'soccer'],
+  van: ['vancouver', 'askvan', 'whitecaps', 'soccer'],
+  mex: ['Mexico_City', 'mexico', 'futbol', 'ClubAmerica'],
+  mty: ['Monterrey', 'mexico', 'futbol', 'Rayados'],
+  gdl: ['Guadalajara', 'mexico', 'futbol', 'Chivas'],
+}
+
+const RAW_STADIUMS: Omit<Stadium, 'subreddits'>[] = [
   { id: 'van', city: 'Vancouver', name: 'BC Place', country: 'can', flag: '🇨🇦', lon: -123.112, lat: 49.277, matches: 7, cap: 54500, about: 'BC Place sits in the heart of downtown Vancouver, minutes from the waterfront and Gastown. The stadium retractable roof keeps matches rain-free in any June shower. Skytrain stops directly outside gate — no car needed.', timezone: 'PT (UTC −7)', airport: 'YVR · 10 mi', airportDist: '25 min by Canada Line', transit: 'SkyTrain (Canada Line)', language: 'EN · FR', weather: '65°F · 18°C' },
   { id: 'sea', city: 'Seattle', name: 'Lumen Field', country: 'usa', flag: '🇺🇸', lon: -122.332, lat: 47.595, matches: 6, cap: 68740, about: 'Lumen Field occupies the southern edge of downtown Seattle, walking distance from Pioneer Square and Pike Place Market. Light Rail connects SEA-TAC airport directly to the stadium in 38 minutes.', timezone: 'PT (UTC −7)', airport: 'SEA-TAC · 14 mi', airportDist: '38 min by Link', transit: 'Link Light Rail', language: 'EN', weather: '68°F · 20°C' },
   { id: 'sfo', city: 'Bay Area', name: "Levi's Stadium", country: 'usa', flag: '🇺🇸', lon: -121.970, lat: 37.404, matches: 6, cap: 68500, about: 'Santa Clara sits in the geographic heart of Silicon Valley, 45 minutes south of San Francisco. Mediterranean climate, walkable downtowns in San Jose and SF. VTA light rail drops you 200 metres from gate F — much easier on match days.', timezone: 'PT (UTC −7)', airport: 'SJC · 4 mi', airportDist: '10 min by taxi', transit: 'VTA light rail', language: 'EN · ES · 中文', weather: '78°F · 26°C' },
@@ -36,6 +60,11 @@ export const STADIUMS: Stadium[] = [
   { id: 'gdl', city: 'Guadalajara', name: 'Estadio Akron', country: 'mex', flag: '🇲🇽', lon: -103.463, lat: 20.682, matches: 4, cap: 49850, about: 'Estadio Akron is home to Chivas, the only club in Mexico that signs only Mexican players. Guadalajara is the birthplace of mariachi and tequila. The Historic Centre and Tlaquepaque artisan markets are exceptional for matchday culture.', timezone: 'CT (UTC −5)', airport: 'GDL · 18 mi', airportDist: '30 min by car', transit: 'Macrobús / shuttle', language: 'ES', weather: '78°F · 26°C' },
   { id: 'mty', city: 'Monterrey', name: 'Estadio BBVA', country: 'mex', flag: '🇲🇽', lon: -100.244, lat: 25.669, matches: 4, cap: 53500, about: 'Estadio BBVA is considered the most beautiful stadium in Latin America, set against the Sierra Madre mountains. Monterrey is Mexico\'s industrial capital and has a sophisticated restaurant scene. Parque Fundidora (a converted steel mill) is right next door.', timezone: 'CT (UTC −5)', airport: 'MTY · 15 mi', airportDist: '25 min by car', transit: 'Metro / shuttle', language: 'ES', weather: '88°F · 31°C' },
 ]
+
+export const STADIUMS: Stadium[] = RAW_STADIUMS.map(s => ({
+  ...s,
+  subreddits: SUBREDDITS_BY_ID[s.id] ?? ['soccer'],
+}))
 
 export function getStadium(id: string): Stadium | undefined {
   return STADIUMS.find(s => s.id === id)

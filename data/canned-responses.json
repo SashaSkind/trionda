@@ -1,0 +1,79 @@
+{
+  "_default": {
+    "_default": {
+      "events": [
+        { "type": "trace", "agent": "concierge", "phase": "parsing-intent", "detail": "(demo-mode replay)" },
+        { "type": "trace", "agent": "concierge", "phase": "intent-ready", "detail": "bar · 2000m" },
+        { "type": "trace", "agent": "concierge", "phase": "dispatching", "detail": "scout + official-events in parallel" },
+        { "type": "trace", "agent": "scout", "phase": "searching", "detail": "r/LosAngeles, r/soccer" },
+        { "type": "trace", "agent": "official-events", "phase": "loading", "detail": "fan-festivals" },
+        { "type": "trace", "agent": "scout", "phase": "extracting", "detail": "Qwen3-Next-80B-A3B-Instruct over 7 threads" },
+        { "type": "trace", "agent": "official-events", "phase": "searching", "detail": "Google Places (New)" },
+        { "type": "trace", "agent": "scout", "phase": "done", "detail": "4 relevant posts, 3 places mentioned" },
+        { "type": "trace", "agent": "official-events", "phase": "done", "detail": "6 candidate places" },
+        { "type": "trace", "agent": "concierge", "phase": "ranking", "detail": "composing top 3" },
+        {
+          "type": "recommendations",
+          "items": [
+            {
+              "name": "Three Weavers Brewing",
+              "lat": 33.9655,
+              "lng": -118.3467,
+              "why": "Reddit consensus pick — walkable from SoFi gates, locals over tourists.",
+              "sources": ["r/LosAngeles", "Google Places"],
+              "distance_m": 1100,
+              "walk_minutes": 14,
+              "vibe_tags": ["bar", "local"]
+            },
+            {
+              "name": "FIFA Fan Festival — LA Live",
+              "lat": 34.0451,
+              "lng": -118.2673,
+              "why": "Official FIFA fan zone — large screens, food, sponsor activations downtown.",
+              "sources": ["https://www.fifa.com/fanfestival/los-angeles"],
+              "vibe_tags": ["fan-zone", "watch-party"]
+            },
+            {
+              "name": "El Compadre",
+              "lat": 34.0958,
+              "lng": -118.3287,
+              "why": "Top-rated nearby (4.6★). Fits the Mexico v USA crowd per Sunset Blvd regulars.",
+              "sources": ["r/soccer", "Google Places"],
+              "distance_m": 14200,
+              "walk_minutes": 178,
+              "vibe_tags": ["bar", "rowdy"]
+            }
+          ]
+        },
+        {
+          "type": "sources",
+          "items": [
+            {
+              "title": "r/LosAngeles: Best post-game bars near SoFi for big matches?",
+              "url": "https://reddit.com/r/LosAngeles/comments/demo-1",
+              "snippet": "Three Weavers in Inglewood has been crushing it on game days — long pours, no door."
+            },
+            {
+              "title": "r/soccer: Mexico v USA bars in LA",
+              "url": "https://reddit.com/r/soccer/comments/demo-2",
+              "snippet": "Skip Hollywood. Go to El Compadre on Sunset or hit La Cita downtown."
+            },
+            {
+              "title": "FIFA Fan Festival — LA Live",
+              "url": "https://www.fifa.com/fanfestival/los-angeles",
+              "snippet": "Main LA fan festival: large screens, food trucks, live music, sponsor activations."
+            }
+          ]
+        },
+        { "type": "trace", "agent": "concierge", "phase": "synthesizing", "detail": "Gemini gemini-3.5-flash" },
+        { "type": "token", "text": "For a post-match bar near SoFi, " },
+        { "type": "token", "text": "Three Weavers Brewing in Inglewood " },
+        { "type": "token", "text": "is the Reddit consensus — walkable from the gates, locals over tourists. " },
+        { "type": "token", "text": "If you want the official spectacle, " },
+        { "type": "token", "text": "the FIFA Fan Festival at LA Live has the big screens and food trucks. " },
+        { "type": "token", "text": "For Mexico v USA energy, El Compadre on Sunset is where the away-fan crowd lands." }
+      ],
+      "delays_ms": [80, 100, 100, 120, 60, 220, 180, 320, 280, 140, 120, 80, 240, 60, 80, 80, 60, 80, 60]
+    }
+  }
+}

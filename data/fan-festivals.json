@@ -1,0 +1,175 @@
+{
+  "_note": "TODO: replace placeholders with real FIFA Fan Festival data once published. Source URLs are placeholders.",
+  "lax": [
+    {
+      "name": "FIFA Fan Festival — LA Live",
+      "date": "2026-06-12",
+      "location": { "lat": 34.0451, "lng": -118.2673 },
+      "description": "Main LA fan festival: large screens, food trucks, live music, sponsor activations. Free entry; 11:00–23:00 daily during the tournament.",
+      "source_url": "https://www.fifa.com/fanfestival/los-angeles"
+    },
+    {
+      "name": "Mexico Watch Party — Grand Park",
+      "date": "2026-06-15",
+      "location": { "lat": 34.0563, "lng": -118.2452 },
+      "description": "Civic-organized watch party for Mexico fixtures with mariachi sets and food stalls.",
+      "source_url": "https://grandparkla.org/worldcup2026"
+    }
+  ],
+  "nyc": [
+    {
+      "name": "FIFA Fan Festival — Liberty State Park",
+      "date": "2026-06-13",
+      "location": { "lat": 40.7012, "lng": -74.0552 },
+      "description": "Waterfront fan zone with Manhattan skyline backdrop; main NY/NJ official site.",
+      "source_url": "https://www.fifa.com/fanfestival/new-york"
+    },
+    {
+      "name": "Times Square Watch Party",
+      "date": "2026-06-13",
+      "location": { "lat": 40.758, "lng": -73.9855 },
+      "description": "Outdoor screens; expect crushes for marquee matches. Arrive 90 min early.",
+      "source_url": "https://www.timessquarenyc.org/worldcup"
+    }
+  ],
+  "dal": [
+    {
+      "name": "FIFA Fan Festival — Klyde Warren Park",
+      "date": "2026-06-14",
+      "location": { "lat": 32.7892, "lng": -96.8014 },
+      "description": "Downtown Dallas official fan zone, walking distance to restaurants and Uptown bars.",
+      "source_url": "https://www.fifa.com/fanfestival/dallas"
+    },
+    {
+      "name": "AT&T Discovery District Watch",
+      "date": "2026-06-14",
+      "location": { "lat": 32.7818, "lng": -96.7989 },
+      "description": "Outdoor LED wall in the AT&T plaza; food halls in the same block.",
+      "source_url": "https://discoverydistrict.attplaza.com"
+    }
+  ],
+  "atl": [
+    {
+      "name": "FIFA Fan Festival — Centennial Olympic Park",
+      "date": "2026-06-13",
+      "location": { "lat": 33.7616, "lng": -84.3927 },
+      "description": "Atlanta's official fan zone, two blocks from Mercedes-Benz Stadium.",
+      "source_url": "https://www.fifa.com/fanfestival/atlanta"
+    }
+  ],
+  "mia": [
+    {
+      "name": "FIFA Fan Festival — Bayfront Park",
+      "date": "2026-06-12",
+      "location": { "lat": 25.775, "lng": -80.1857 },
+      "description": "Downtown Miami waterfront fan zone with Latin-American food vendors.",
+      "source_url": "https://www.fifa.com/fanfestival/miami"
+    }
+  ],
+  "hou": [
+    {
+      "name": "FIFA Fan Festival — Discovery Green",
+      "date": "2026-06-14",
+      "location": { "lat": 29.7536, "lng": -95.3592 },
+      "description": "Downtown Houston park fan zone, walkable from light rail to NRG.",
+      "source_url": "https://www.fifa.com/fanfestival/houston"
+    }
+  ],
+  "sfo": [
+    {
+      "name": "FIFA Fan Festival — San Jose City Hall Plaza",
+      "date": "2026-06-15",
+      "location": { "lat": 37.3372, "lng": -121.8863 },
+      "description": "South Bay official fan zone, closer to Levi's than SF.",
+      "source_url": "https://www.fifa.com/fanfestival/bay-area"
+    }
+  ],
+  "bos": [
+    {
+      "name": "FIFA Fan Festival — Boston Common",
+      "date": "2026-06-13",
+      "location": { "lat": 42.3554, "lng": -71.0656 },
+      "description": "Boston Common fan zone, accessible via Green Line; train + commuter rail to Foxborough.",
+      "source_url": "https://www.fifa.com/fanfestival/boston"
+    }
+  ],
+  "phi": [
+    {
+      "name": "FIFA Fan Festival — Eakins Oval",
+      "date": "2026-06-14",
+      "location": { "lat": 39.9665, "lng": -75.176 },
+      "description": "Ben Franklin Parkway fan zone with Art Museum backdrop.",
+      "source_url": "https://www.fifa.com/fanfestival/philadelphia"
+    }
+  ],
+  "kc": [
+    {
+      "name": "FIFA Fan Festival — Power & Light District",
+      "date": "2026-06-13",
+      "location": { "lat": 39.0982, "lng": -94.5832 },
+      "description": "Downtown KC entertainment district fan zone with covered seating.",
+      "source_url": "https://www.fifa.com/fanfestival/kansas-city"
+    }
+  ],
+  "sea": [
+    {
+      "name": "FIFA Fan Festival — Seattle Center",
+      "date": "2026-06-15",
+      "location": { "lat": 47.6205, "lng": -122.3493 },
+      "description": "Seattle Center fan zone next to Space Needle; monorail to downtown.",
+      "source_url": "https://www.fifa.com/fanfestival/seattle"
+    }
+  ],
+  "tor": [
+    {
+      "name": "FIFA Fan Festival — Nathan Phillips Square",
+      "date": "2026-06-12",
+      "location": { "lat": 43.6526, "lng": -79.3837 },
+      "description": "City Hall plaza fan zone; streetcar/subway from BMO Field area.",
+      "source_url": "https://www.fifa.com/fanfestival/toronto"
+    },
+    {
+      "name": "Liberty Village Outdoor Watch",
+      "date": "2026-06-12",
+      "location": { "lat": 43.6386, "lng": -79.4193 },
+      "description": "Neighbourhood fan watch organized by local pubs; walking distance to BMO.",
+      "source_url": "https://www.libertyvillage.com/worldcup"
+    }
+  ],
+  "van": [
+    {
+      "name": "FIFA Fan Festival — Jack Poole Plaza",
+      "date": "2026-06-13",
+      "location": { "lat": 49.2884, "lng": -123.1162 },
+      "description": "Convention Centre waterfront plaza fan zone with mountain views.",
+      "source_url": "https://www.fifa.com/fanfestival/vancouver"
+    }
+  ],
+  "mex": [
+    {
+      "name": "FIFA Fan Festival — Zócalo",
+      "date": "2026-06-11",
+      "location": { "lat": 19.4326, "lng": -99.1332 },
+      "description": "Main square fan zone; expect 100k+ for Mexico fixtures.",
+      "source_url": "https://www.fifa.com/fanfestival/mexico-city"
+    }
+  ],
+  "mty": [
+    {
+      "name": "FIFA Fan Festival — Macroplaza",
+      "date": "2026-06-13",
+      "location": { "lat": 25.6694, "lng": -100.3098 },
+      "description": "Downtown Monterrey civic plaza fan zone.",
+      "source_url": "https://www.fifa.com/fanfestival/monterrey"
+    }
+  ],
+  "gdl": [
+    {
+      "name": "FIFA Fan Festival — Plaza Liberación",
+      "date": "2026-06-14",
+      "location": { "lat": 20.6779, "lng": -103.3431 },
+      "description": "Historic centre fan zone in front of the Cathedral.",
+      "source_url": "https://www.fifa.com/fanfestival/guadalajara"
+    }
+  ]
+}
