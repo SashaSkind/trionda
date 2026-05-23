@@ -1,6 +1,7 @@
 import { getStadium } from '@/lib/stadiums';
 import { agentResultCache, intentCacheKey, type CachedAgentResult } from '@/lib/cache';
-import { parseIntent, synthesizeStream } from '@/lib/llm/gemini';
+import { buildSynthesisPrompt, parseIntent, synthesizeStream, type SynthesisContext } from '@/lib/llm/gemini';
+import { synthesizeViaRocketRide } from '@/lib/llm/rocketride';
 import { walkingDistance, haversineDistance } from '@/lib/maps';
 import { runOfficialEvents } from '@/lib/agents/official-events';
 import { runScout } from '@/lib/agents/scout';
@@ -82,17 +83,13 @@ export async function runConcierge(input: RunConciergeInput, emit: ConciergeEmit
   const sources = collectSources(scout.scoredPosts, official.fanEvents);
   emit.sources(sources);
 
-  emit.trace('concierge', 'synthesizing', `Gemini ${process.env.GEMINI_MODEL ?? 'gemini-3.5-flash'}`);
-  let synthesisText = '';
-  for await (const piece of synthesizeStream({
+  const synthesisCtx: SynthesisContext = {
     intent,
     recommendations,
     placeMentions: scout.placeMentions,
     places: candidatesWithDistance,
-  })) {
-    synthesisText += piece;
-    emit.token(piece);
-  }
+  };
+  const synthesisText = await streamSynthesis(synthesisCtx, emit);
 
   agentResultCache.set(cacheKey, {
     intent,
@@ -101,6 +98,33 @@ export async function runConcierge(input: RunConciergeInput, emit: ConciergeEmit
     synthesis: synthesisText,
   } satisfies CachedAgentResult);
   emit.trace('concierge', 'done', `cached as ${cacheKey}`);
+}
+
+// ── synthesis (RocketRide if available, direct Gemini fallback) ────────────
+
+const ROCKETRIDE_DISABLED = process.env.ROCKETRIDE_DISABLED === 'true';
+
+async function streamSynthesis(ctx: SynthesisContext, emit: ConciergeEmitter): Promise<string> {
+  if (!ROCKETRIDE_DISABLED) {
+    const prompt = buildSynthesisPrompt(ctx);
+    emit.trace('concierge', 'synthesizing', 'RocketRide pipeline → llm_gemini');
+    const outcome = await synthesizeViaRocketRide(prompt);
+    if (outcome.ok) {
+      // RocketRide returns the full answer (chat() is blocking). Chunk it so
+      // the SSE stream still feels like progressive synthesis to the client.
+      for (const piece of chunkText(outcome.text, 24)) emit.token(piece);
+      return outcome.text;
+    }
+    emit.trace('concierge', 'rocketride-fallback', outcome.reason);
+  }
+
+  emit.trace('concierge', 'synthesizing', `direct Gemini ${process.env.GEMINI_MODEL ?? 'gemini-3.5-flash'}`);
+  let text = '';
+  for await (const piece of synthesizeStream(ctx)) {
+    text += piece;
+    emit.token(piece);
+  }
+  return text;
 }
 
 // ── ranking ────────────────────────────────────────────────────────────────

@@ -92,7 +92,7 @@ async function replayCanned(
   emit({ type: 'done' });
 }
 
-export function messageHash(message: string): string {
+function messageHash(message: string): string {
   return createHash('sha1').update(message.trim().toLowerCase()).digest('hex').slice(0, 12);
 }
 

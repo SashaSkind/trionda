@@ -93,7 +93,7 @@ export async function* synthesizeStream(ctx: SynthesisContext): AsyncIterable<st
   }
 }
 
-function buildSynthesisPrompt(ctx: SynthesisContext): string {
+export function buildSynthesisPrompt(ctx: SynthesisContext): string {
   const recs = ctx.recommendations
     .map(
       (r, i) =>
