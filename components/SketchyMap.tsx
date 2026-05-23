@@ -223,7 +223,6 @@ export default function SketchyMap({
             {label}
           </div>
         ))}
-        <div style={{ color: TRI.inkFaint, marginLeft: 8 }}>· drag to pan</div>
       </div>
     </div>
   )
