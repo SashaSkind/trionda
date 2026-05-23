@@ -360,14 +360,14 @@ function MapHoverDrawer() {
           <div className="print" style={{ fontSize: 14, color: TRI.inkSoft, marginBottom: 10 }}>
             capacity {stop.cap.toLocaleString()} · {stop.matches} matches
           </div>
-          <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             {['Group stage','Round of 32','Round of 16', stop.id === 'nyc' ? '🏆 FINAL' : 'Quarter-final'].map((m,i)=>(
               <span key={i} className="ink-box" style={{ padding: '3px 10px', fontFamily: 'Caveat', fontSize: 15, background: i === 3 && stop.id === 'nyc' ? '#fef4a8' : 'white' }}>{m}</span>
             ))}
           </div>
-          <div style={{ display: 'flex', gap: 8, marginTop: 'auto' }}>
-            <button className="btn-sketch red">Explore stadium →</button>
-          </div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <button className="btn-sketch red">Explore stadium →</button>
         </div>
       </div>
 
