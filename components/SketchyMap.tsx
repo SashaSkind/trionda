@@ -29,6 +29,18 @@ export default function SketchyMap({
   const [projected, setProjected] = useState<(Stadium & { x: number; y: number })[] | null>(null)
   const [loadError, setLoadError] = useState(false)
 
+  const MIN_SCALE = 0.35
+  const MAX_SCALE = 1.5
+  const STEP = 0.15
+  const [scale, setScale] = useState(1.0)
+
+  // default to a zoomed-out view on mobile so the full continent is visible
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setScale(0.5)
+    }
+  }, [])
+
   // Build the rough.js map
   useEffect(() => {
     let cancelled = false
@@ -193,13 +205,14 @@ export default function SketchyMap({
     }
   }, [])
 
-  // Center on US after first render
+  // Center on US after first render (intentionally excludes scale — only center once on load)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!projected || !containerRef.current) return
     const el = containerRef.current
-    el.scrollLeft = Math.max(0, (width - el.clientWidth) / 2)
+    el.scrollLeft = Math.max(0, (width * scale - el.clientWidth) / 2)
     // offset upward so the US sits in view, not southern Mexico
-    el.scrollTop = Math.max(0, (height - el.clientHeight) / 2 - 200)
+    el.scrollTop = Math.max(0, (height * scale - el.clientHeight) / 2 - 200 * scale)
   }, [projected, width, height])
 
   const handlePinInteract = (s: Stadium & { x: number; y: number }) => {
@@ -207,45 +220,52 @@ export default function SketchyMap({
     onHover?.(s)
   }
 
+  const zoomIn  = () => setScale(s => Math.min(MAX_SCALE, +(s + STEP).toFixed(2)))
+  const zoomOut = () => setScale(s => Math.max(MIN_SCALE, +(s - STEP).toFixed(2)))
+
   return (
     <div
       ref={containerRef}
       className="scrollbar-hide paper-texture"
       style={{ width: '100%', height: '100%', overflow: 'auto', cursor: 'grab', position: 'relative' }}
     >
-      <div style={{ width, height, position: 'relative' }}>
-        <svg
-          ref={svgRef}
-          width={width}
-          height={height}
-          style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
-        />
-        {loadError && (
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Caveat', fontSize: 22, color: TRI.red }}>
-            (offline — connect to load the sketchy map)
-          </div>
-        )}
-
-        {/* Pins */}
-        {projected?.map(s => {
-          const active = s.id === hoveredId
-          return (
-            <div
-              key={s.id}
-              className={`map-pin ${s.country} ${active ? 'active' : ''}`}
-              style={{ left: s.x, top: s.y }}
-              onMouseEnter={() => handlePinInteract(s)}
-              onTouchStart={() => handlePinInteract(s)}
-              onClick={() => { handlePinInteract(s); onSelect?.(s) }}
-            >
-              <div className="dot" />
-              <span className="pin-label">{s.city}</span>
+      {/* outer div gives the scroll container the correct scaled footprint */}
+      <div style={{ width: width * scale, height: height * scale, flexShrink: 0 }}>
+        {/* inner div is the actual map, scaled via CSS transform */}
+        <div style={{ width, height, transform: `scale(${scale})`, transformOrigin: 'top left', position: 'relative' }}>
+          <svg
+            ref={svgRef}
+            width={width}
+            height={height}
+            style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
+          />
+          {loadError && (
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Caveat', fontSize: 22, color: TRI.red }}>
+              (offline — connect to load the sketchy map)
             </div>
-          )
-        })}
+          )}
+
+          {/* Pins */}
+          {projected?.map(s => {
+            const active = s.id === hoveredId
+            return (
+              <div
+                key={s.id}
+                className={`map-pin ${s.country} ${active ? 'active' : ''}`}
+                style={{ left: s.x, top: s.y }}
+                onMouseEnter={() => handlePinInteract(s)}
+                onTouchStart={() => handlePinInteract(s)}
+                onClick={() => { handlePinInteract(s); onSelect?.(s) }}
+              >
+                <div className="dot" />
+                <span className="pin-label">{s.city}</span>
+              </div>
+            )
+          })}
+        </div>
       </div>
 
-      {/* Legend HUD */}
+      {/* Legend HUD + zoom controls */}
       <div style={{
         position: 'sticky', left: 16, bottom: 16, marginTop: -64, width: 'fit-content',
         background: 'white', border: `1.8px solid ${TRI.ink}`, borderRadius: 10, padding: '8px 12px',
@@ -257,6 +277,25 @@ export default function SketchyMap({
             <span style={{ width: 10, height: 10, background: color, borderRadius: '50%', border: `1.2px solid ${TRI.ink}`, display: 'inline-block' }} />
             {label}
           </div>
+        ))}
+
+        {/* zoom buttons — divider then +/− */}
+        <div style={{ width: 1, height: 16, background: TRI.ink, opacity: 0.2, flexShrink: 0 }} />
+        {[['−', zoomOut, scale <= MIN_SCALE], ['+', zoomIn, scale >= MAX_SCALE]].map(([label, fn, disabled]) => (
+          <button
+            key={label as string}
+            onClick={fn as () => void}
+            disabled={disabled as boolean}
+            style={{
+              width: 26, height: 26, border: `1.5px solid ${TRI.ink}`, borderRadius: 6,
+              background: 'white', cursor: disabled ? 'default' : 'pointer',
+              fontFamily: 'Caveat', fontSize: 18, lineHeight: '24px', padding: 0,
+              opacity: disabled ? 0.3 : 1, boxShadow: `1.5px 1.5px 0 ${TRI.ink}`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}
+          >
+            {label as string}
+          </button>
         ))}
       </div>
     </div>
