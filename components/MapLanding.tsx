@@ -33,24 +33,7 @@ export default function MapLanding() {
       {/* Bottom drawer */}
       <MapDrawer stadium={hoveredStadium} />
 
-      {/* Designer annotations */}
-      <div className="note" style={{
-        position: 'absolute', top: 92, right: 50, zIndex: 2,
-        fontFamily: 'var(--font-caveat), cursive', color: '#E1252C',
-        fontSize: 18, lineHeight: 1.05, maxWidth: 220,
-      }}>
-        <span style={{ display: 'block', fontSize: 24 }}>↘</span>
-        hand-drawn over real geo<br />
-        (d3-geo + rough.js) · drag to pan
-      </div>
-      <div className="note" style={{
-        position: 'absolute', bottom: 230, left: 50, zIndex: 2,
-        fontFamily: 'var(--font-caveat), cursive', color: '#E1252C',
-        fontSize: 18, lineHeight: 1.05, maxWidth: 220,
-      }}>
-        ← hover/tap a pin →<br />
-        drawer previews that stadium
-      </div>
+
     </div>
   )
 }

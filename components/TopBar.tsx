@@ -20,10 +20,7 @@ export default function TopBar({ title, right }: TopBarProps) {
       )}
       <div style={{ display: 'flex', gap: 12 }}>
         {right ?? (
-          <>
-            <button className="btn-sketch" style={{ fontSize: 16 }}>🇬🇧 EN</button>
-            <button className="btn-sketch solid" style={{ fontSize: 16 }}>Sign in</button>
-          </>
+          <button className="btn-sketch" style={{ fontSize: 16 }}>🇬🇧 EN</button>
         )}
       </div>
     </div>

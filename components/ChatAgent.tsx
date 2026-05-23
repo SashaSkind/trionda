@@ -160,14 +160,12 @@ export default function ChatAgent() {
     }, 800 + Math.random() * 600)
   }
 
-  const fabBg = fabState === 'thinking' ? TRI.red : fabState === 'answered' ? TRI.green : TRI.ink
-
   return (
     <>
       {/* Floating chat panel */}
       {open && (
         <div style={{
-          position: 'fixed', bottom: 100, left: 26, zIndex: 50,
+          position: 'fixed', bottom: 100, right: 26, zIndex: 50,
           width: 420, height: 540,
           background: 'white', border: `2.4px solid ${TRI.ink}`, borderRadius: 14,
           boxShadow: `6px 6px 0 ${TRI.ink}`,
@@ -265,54 +263,40 @@ export default function ChatAgent() {
         </div>
       )}
 
-      {/* FAB */}
-      <div
+      {/* FAB — combined pill button */}
+      <button
+        onClick={() => setOpen(o => !o)}
         style={{
-          position: 'fixed', bottom: 26, left: 26, zIndex: 50,
+          position: 'fixed', bottom: 26, right: 26, zIndex: 50,
           display: 'flex', alignItems: 'center', gap: 10,
+          background: TRI.green, border: `2.4px solid ${TRI.ink}`,
+          borderRadius: 999, padding: '10px 20px 10px 14px',
+          boxShadow: `3px 3px 0 ${TRI.ink}`,
+          cursor: 'pointer', transition: 'transform 0.15s',
         }}
       >
-        <button
-          onClick={() => setOpen(o => !o)}
-          style={{
-            width: 56, height: 56, borderRadius: '50%',
-            background: fabBg, border: `2.4px solid ${TRI.ink}`,
-            boxShadow: '3px 3px 0 ' + TRI.ink,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            cursor: 'pointer', transition: 'background 0.3s, transform 0.15s',
-          }}
-        >
-          {fabState === 'thinking' ? (
-            <span className="hand" style={{ fontSize: 22, color: 'white' }}>...</span>
-          ) : (
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M 3 6 Q 3 3 6 3 L 18 3 Q 21 3 21 6 L 21 14 Q 21 17 18 17 L 11 17 L 6 21 L 6 17 Q 3 17 3 14 Z"/>
-            </svg>
-          )}
-          {fabState === 'answered' && (
-            <div style={{
-              position: 'absolute', top: -4, right: -4, width: 18, height: 18,
-              borderRadius: '50%', background: TRI.red, border: `1.6px solid ${TRI.ink}`,
-              fontSize: 11, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontFamily: 'var(--font-kalam), cursive', fontWeight: 700,
-            }}>1</div>
-          )}
-        </button>
-        {!open && (
-          <button
-            onClick={() => setOpen(true)}
-            style={{
-              background: 'white', border: `1.8px solid ${TRI.ink}`,
-              borderRadius: 999, padding: '6px 14px',
-              fontFamily: 'var(--font-caveat), cursive', fontSize: 20,
-              boxShadow: `2px 2px 0 ${TRI.ink}`,
-              cursor: 'pointer',
-            }}
-          >
-            {fabLabel}
-          </button>
+        {fabState === 'thinking' ? (
+          <span className="hand" style={{ fontSize: 22, color: 'white', lineHeight: 1 }}>...</span>
+        ) : (
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M 3 6 Q 3 3 6 3 L 18 3 Q 21 3 21 6 L 21 14 Q 21 17 18 17 L 11 17 L 6 21 L 6 17 Q 3 17 3 14 Z"/>
+          </svg>
         )}
-      </div>
+        <span
+          className="hand"
+          style={{ fontSize: 20, color: 'white', fontWeight: 600, lineHeight: 1 }}
+        >
+          {fabLabel}
+        </span>
+        {fabState === 'answered' && (
+          <div style={{
+            position: 'absolute', top: -4, right: -4, width: 18, height: 18,
+            borderRadius: '50%', background: TRI.red, border: `1.6px solid ${TRI.ink}`,
+            fontSize: 11, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontFamily: 'var(--font-kalam), cursive', fontWeight: 700,
+          }}>1</div>
+        )}
+      </button>
 
       <style>{`
         @keyframes fadeSlideUp {
