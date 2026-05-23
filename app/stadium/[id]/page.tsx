@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '@/components/Logo'
 import ScheduleCard from '@/components/ScheduleCard'
@@ -79,15 +80,15 @@ export default function StadiumPage({ params }: { params: { id: string } }) {
 
       {/* Hero — full-bleed */}
       <div style={{ position: 'relative', width: '100%', height: 640, overflow: 'hidden' }}>
-        {/* Placeholder — user can swap for a real bird's-eye photo */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'repeating-linear-gradient(135deg, #d0c9b5, #d0c9b5 10px, #c8c1aa 10px, #c8c1aa 20px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontFamily: 'var(--font-caveat), cursive', fontSize: 24, color: 'rgba(21,23,26,0.4)',
-        }}>
-          ↑ drop your bird's-eye photo here ↑
-        </div>
+        {/* Aerial stadium photo */}
+        <Image
+          src={stadium.image}
+          alt={`Aerial view of ${stadium.name}`}
+          fill
+          priority
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          sizes="100vw"
+        />
 
         {/* Gradient overlay */}
         <div style={{
@@ -178,16 +179,6 @@ export default function StadiumPage({ params }: { params: { id: string } }) {
         <SpotsSection />
       </div>
 
-      {/* Designer annotation */}
-      <div style={{
-        position: 'fixed', top: 180, right: 40, zIndex: 2,
-        fontFamily: 'var(--font-caveat), cursive', color: '#E1252C',
-        fontSize: 18, lineHeight: 1.05, maxWidth: 200, pointerEvents: 'none',
-      }}>
-        <span style={{ display: 'block', fontSize: 24 }}>↗</span>
-        hero = real photo<br />
-        swap the hatched area
-      </div>
     </div>
   )
 }

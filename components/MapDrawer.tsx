@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { Stadium } from '@/lib/stadiums'
 
@@ -28,11 +29,15 @@ export default function MapDrawer({ stadium }: { stadium: Stadium }) {
       <div style={{
         width: 280, borderRadius: 8, overflow: 'hidden',
         border: '1.6px solid #15171a',
-        background: 'repeating-linear-gradient(135deg, #ece6d3, #ece6d3 8px, #e5dec4 8px, #e5dec4 16px)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontFamily: 'Caveat', fontSize: 18, color: '#4a4a4a', flexShrink: 0,
+        flexShrink: 0, position: 'relative',
       }}>
-        bird's-eye photo →
+        <Image
+          src={stadium.image}
+          alt={`Aerial view of ${stadium.name}`}
+          fill
+          style={{ objectFit: 'cover' }}
+          sizes="280px"
+        />
       </div>
 
       {/* Info */}
@@ -59,8 +64,6 @@ export default function MapDrawer({ stadium }: { stadium: Stadium }) {
           <Link href={`/stadium/${stadium.id}`} className="btn-sketch red" style={{ fontSize: 16 }}>
             Explore stadium →
           </Link>
-          <button className="btn-sketch" style={{ fontSize: 16 }}>Add to my trip</button>
-          <button className="btn-sketch" style={{ fontSize: 16 }}>Ask the agent</button>
         </div>
       </div>
     </div>

@@ -7,5 +7,14 @@ const nextConfig = {
     // "bufferUtil.mask is not a function" mid-call.
     serverComponentsExternalPackages: ['rocketride', 'ws', 'bufferutil', 'utf-8-validate'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+        pathname: '/wikipedia/commons/**',
+      },
+    ],
+  },
 }
 module.exports = nextConfig
