@@ -367,8 +367,6 @@ function MapHoverDrawer() {
           </div>
           <div style={{ display: 'flex', gap: 8, marginTop: 'auto' }}>
             <button className="btn-sketch red">Explore stadium →</button>
-            <button className="btn-sketch">Add to my trip</button>
-            <button className="btn-sketch">Ask the agent</button>
           </div>
         </div>
       </div>
