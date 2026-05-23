@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #15171a;
+  --ink-soft: #4a4a4a;
+  --ink-faint: #8b8b8b;
+  --paper: #fbf7ee;
+  --paper-2: #f3eeda;
+  --paper-3: #e8e1c8;
+  --red: #E1252C;
+  --green: #009A4E;
+  --blue: #0061B2;
+  --red-soft: #fde2e3;
+  --green-soft: #d7f0e1;
+  --blue-soft: #d4e6f7;
+  --pencil: 1.8px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-kalam), 'Patrick Hand', cursive;
+}
+
+/* Font utility classes */
+.hand   { font-family: var(--font-caveat), cursive; }
+.scrawl { font-family: var(--font-kalam), cursive; }
+.print  { font-family: var(--font-patrick), cursive; }
+.arch   { font-family: var(--font-arch), cursive; }
+
+/* Sketchy box borders */
+.ink-box {
+  border: var(--pencil) solid var(--ink);
+  border-radius: 6px;
+}
+.ink-box-soft {
+  border: 1.4px solid var(--ink-soft);
+  border-radius: 6px;
+}
+
+/* Sketch buttons */
+.btn-sketch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+  background: var(--paper);
+  font-family: var(--font-caveat), cursive;
+  font-size: 20px;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: transform 0.1s, box-shadow 0.1s;
+  text-decoration: none;
+}
+.btn-sketch:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.btn-sketch:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.btn-sketch.solid  { background: var(--ink);   color: var(--paper); }
+.btn-sketch.red    { background: var(--red);   color: white; border-color: var(--red); }
+.btn-sketch.green  { background: var(--green); color: white; border-color: var(--green); }
+.btn-sketch.blue   { background: var(--blue);  color: white; border-color: var(--blue); }
+
+/* Squiggle underline */
+.squiggle {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='8' viewBox='0 0 80 8'><path d='M2 5 Q 10 1 18 5 T 34 5 T 50 5 T 66 5 T 80 5' fill='none' stroke='%23E1252C' stroke-width='2'/></svg>");
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  padding-bottom: 4px;
+}
+
+/* Pin on map */
+.map-pin {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  transform: translate(-50%, -100%);
+  cursor: pointer;
+}
+.map-pin .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.8px solid var(--ink);
+  position: absolute;
+  left: 3px;
+  top: 0;
+  box-shadow: 1.5px 1.5px 0 rgba(0,0,0,0.15);
+  transition: width 0.15s, height 0.15s, left 0.15s, top 0.15s, box-shadow 0.15s;
+}
+.map-pin.usa .dot  { background: var(--blue); }
+.map-pin.mex .dot  { background: var(--green); }
+.map-pin.can .dot  { background: var(--red); }
+.map-pin .stick {
+  position: absolute;
+  left: 9px;
+  top: 14px;
+  width: 1.8px;
+  height: 8px;
+  background: var(--ink);
+}
+.map-pin.active .dot {
+  width: 24px;
+  height: 24px;
+  left: -1px;
+  top: -3px;
+}
+.map-pin.active.usa .dot  { box-shadow: 0 0 0 8px rgba(0,97,178,0.18); }
+.map-pin.active.mex .dot  { box-shadow: 0 0 0 8px rgba(0,154,78,0.18); }
+.map-pin.active.can .dot  { box-shadow: 0 0 0 8px rgba(225,37,44,0.18); }
+
+/* Chat FAB */
+.chat-fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2.4px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.chat-fab:hover {
+  transform: scale(1.05);
+}
+
+/* Paper texture */
+.paper-texture {
+  background-color: var(--paper);
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Scrollbar hide */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
