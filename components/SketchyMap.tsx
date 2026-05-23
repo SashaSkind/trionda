@@ -204,17 +204,7 @@ export default function SketchyMap({
               onClick={() => { handlePinInteract(s); onSelect?.(s) }}
             >
               <div className="dot" />
-              <div className="stick" />
-              {active && (
-                <div className="hand" style={{
-                  position: 'absolute', top: 18, left: 16,
-                  fontSize: 16, color: TRI.ink, whiteSpace: 'nowrap',
-                  background: 'white', padding: '1px 6px', borderRadius: 4,
-                  border: `1.4px solid ${TRI.ink}`,
-                }}>
-                  {s.city}
-                </div>
-              )}
+              <span className="pin-label">{s.city}</span>
             </div>
           )
         })}

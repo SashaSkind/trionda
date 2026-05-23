@@ -83,42 +83,44 @@ html, body {
 /* Pin on map */
 .map-pin {
   position: absolute;
-  width: 22px;
-  height: 22px;
-  transform: translate(-50%, -100%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  /* center the dot on the coordinate */
+  transform: translate(-8px, -8px);
   cursor: pointer;
 }
 .map-pin .dot {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
   border-radius: 50%;
   border: 1.8px solid var(--ink);
-  position: absolute;
-  left: 3px;
-  top: 0;
   box-shadow: 1.5px 1.5px 0 rgba(0,0,0,0.15);
-  transition: width 0.15s, height 0.15s, left 0.15s, top 0.15s, box-shadow 0.15s;
+  transition: width 0.15s, height 0.15s, box-shadow 0.15s;
 }
 .map-pin.usa .dot  { background: var(--blue); }
 .map-pin.mex .dot  { background: var(--green); }
 .map-pin.can .dot  { background: var(--red); }
-.map-pin .stick {
-  position: absolute;
-  left: 9px;
-  top: 14px;
-  width: 1.8px;
-  height: 8px;
-  background: var(--ink);
+/* enlarge dot on hover only — no label change needed */
+.map-pin:hover .dot {
+  width: 19px;
+  height: 19px;
 }
-.map-pin.active .dot {
-  width: 24px;
-  height: 24px;
-  left: -1px;
-  top: -3px;
+.map-pin .pin-label {
+  font-family: var(--font-caveat), cursive;
+  font-size: 14px;
+  color: var(--ink);
+  white-space: nowrap;
+  background: rgba(251,247,238,0.82);
+  padding: 1px 5px;
+  border-radius: 3px;
+  pointer-events: none;
+  line-height: 1.3;
 }
-.map-pin.active.usa .dot  { box-shadow: 0 0 0 8px rgba(0,97,178,0.18); }
-.map-pin.active.mex .dot  { box-shadow: 0 0 0 8px rgba(0,154,78,0.18); }
-.map-pin.active.can .dot  { box-shadow: 0 0 0 8px rgba(225,37,44,0.18); }
+.map-pin.active.usa .dot  { box-shadow: 0 0 0 6px rgba(0,97,178,0.18); }
+.map-pin.active.mex .dot  { box-shadow: 0 0 0 6px rgba(0,154,78,0.18); }
+.map-pin.active.can .dot  { box-shadow: 0 0 0 6px rgba(225,37,44,0.18); }
 
 /* Chat FAB */
 .chat-fab {
