@@ -1,9 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { Stadium } from '@/lib/stadiums'
-import { useIsMobile } from '@/lib/hooks'
 
 const MATCH_ROUNDS: Record<string, string[]> = {
   nyc: ['Group stage', 'Round of 32', 'Round of 16', 'FINAL'],
@@ -13,42 +11,46 @@ const MATCH_ROUNDS: Record<string, string[]> = {
   default: ['Group stage', 'Round of 32', 'Round of 16', 'Round of 16'],
 }
 
-export default function MapDrawer({ stadium }: { stadium: Stadium }) {
-  const isMobile = useIsMobile()
+interface MapDrawerProps {
+  stadium: Stadium
+  // when true the card sits in normal document flow (mobile scroll layout)
+  // when false it uses position:absolute to float over the map (desktop)
+  inline?: boolean
+}
+
+export default function MapDrawer({ stadium, inline = false }: MapDrawerProps) {
   const rounds = MATCH_ROUNDS[stadium.id] || MATCH_ROUNDS.default
 
   return (
     <div
-      className="preview-card safe-bottom"
+      className="preview-card"
       style={{
-        position: 'absolute',
-        bottom: isMobile ? 'max(16px, env(safe-area-inset-bottom))' : 26,
-        left: isMobile ? 16 : 26,
-        right: isMobile ? 16 : 26,
-        height: isMobile ? 'auto' : 180,
-        minHeight: isMobile ? undefined : 180,
+        ...(inline
+          ? { position: 'relative' }
+          : { position: 'absolute', bottom: 26, left: 26, right: 26 }),
+        height: inline ? 'auto' : 180,
+        minHeight: inline ? undefined : 180,
         background: 'white', border: '2.4px solid #15171a', borderRadius: 12,
         boxShadow: '5px 5px 0 #15171a',
         display: 'flex',
-        flexDirection: isMobile ? 'column' : 'row',
-        gap: isMobile ? 12 : 18,
-        padding: isMobile ? 14 : 18,
+        flexDirection: inline ? 'column' : 'row',
+        gap: inline ? 12 : 18,
+        padding: inline ? 14 : 18,
         alignItems: 'stretch',
       }}
     >
-      {/* Thumbnail — hidden on mobile to save horizontal space */}
-      {!isMobile && (
+      {/* Thumbnail — desktop only */}
+      {!inline && (
         <div style={{
           width: 280, borderRadius: 8, overflow: 'hidden',
           border: '1.6px solid #15171a',
-          flexShrink: 0, position: 'relative', minHeight: 120,
+          flexShrink: 0,
         }}>
-          <Image
+          {/* plain img — avoids next/image proxy so Wikimedia CDN serves directly */}
+          <img
             src={stadium.image}
             alt={`Aerial view of ${stadium.name}`}
-            fill
-            style={{ objectFit: 'cover' }}
-            sizes="280px"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
         </div>
       )}
@@ -56,7 +58,7 @@ export default function MapDrawer({ stadium }: { stadium: Stadium }) {
       {/* Info */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-          <span className="hand" style={{ fontSize: isMobile ? 24 : 36, fontWeight: 700 }}>{stadium.name}</span>
+          <span className="hand" style={{ fontSize: inline ? 24 : 36, fontWeight: 700 }}>{stadium.name}</span>
           <span className="print" style={{ fontSize: 16, color: '#4a4a4a' }}>{stadium.flag} {stadium.city}</span>
         </div>
         <div className="print" style={{ fontSize: 14, color: '#4a4a4a', marginBottom: 10 }}>
