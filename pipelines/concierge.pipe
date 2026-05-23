@@ -12,8 +12,8 @@
       },
       "ui": {
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 80,
+          "y": 240
         },
         "nodeType": "default",
         "formDataValid": true
@@ -21,21 +21,20 @@
     },
     {
       "id": "scout_1",
-      "provider": "llm_openai",
-      "name": "OpenAI",
+      "provider": "llm_gmi_cloud",
+      "name": "Scout (GMI / Qwen)",
       "config": {
-        "profile": "gmi",
-        "gmi": {
+        "profile": "custom",
+        "custom": {
           "apikey": "${ROCKETRIDE_GMI_KEY}",
-          "baseUrl": "https://api.gmi-serving.com/v1",
-          "model": "meta-llama/Llama-3.1-8B-Instruct"
+          "model": "Qwen/Qwen3-Next-80B-A3B-Instruct"
         },
         "parameters": {}
       },
       "ui": {
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 380,
+          "y": 80
         },
         "nodeType": "default",
         "formDataValid": true
@@ -50,19 +49,18 @@
     {
       "id": "official_events_1",
       "provider": "llm_gemini",
-      "name": "Gemini",
+      "name": "Official Events (Gemini)",
       "config": {
-        "profile": "gemini-3-5-flash",
-        "gemini-3-5-flash": {
-          "apikey": "${ROCKETRIDE_GEMINI_KEY}",
-          "model": "gemini-3.5-flash"
+        "profile": "models-gemini-flash-latest",
+        "models-gemini-flash-latest": {
+          "apikey": "${ROCKETRIDE_GEMINI_KEY}"
         },
         "parameters": {}
       },
       "ui": {
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 380,
+          "y": 400
         },
         "nodeType": "default",
         "formDataValid": true
@@ -77,19 +75,18 @@
     {
       "id": "concierge_synth_1",
       "provider": "llm_gemini",
-      "name": "Gemini",
+      "name": "Concierge Synth (Gemini)",
       "config": {
-        "profile": "gemini-3-5-flash",
-        "gemini-3-5-flash": {
-          "apikey": "${ROCKETRIDE_GEMINI_KEY}",
-          "model": "gemini-3.5-flash"
+        "profile": "models-gemini-flash-latest",
+        "models-gemini-flash-latest": {
+          "apikey": "${ROCKETRIDE_GEMINI_KEY}"
         },
         "parameters": {}
       },
       "ui": {
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 720,
+          "y": 240
         },
         "nodeType": "default",
         "formDataValid": true
@@ -114,8 +111,8 @@
       },
       "ui": {
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 1040,
+          "y": 240
         },
         "nodeType": "default",
         "formDataValid": true
@@ -128,7 +125,7 @@
       ]
     }
   ],
-  "project_id": "b947dc50-ee87-40c0-9fdc-988e724bf4f3",
+  "project_id": "a71c73ef-47d3-4cf2-ae9c-18a3e0854f89",
   "version": 1,
   "isLocked": false,
   "snapToGrid": true,
