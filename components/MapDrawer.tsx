@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Stadium } from '@/lib/stadiums'
 
 const MATCH_ROUNDS: Record<string, string[]> = {
-  nyc: ['Group stage', 'Round of 32', 'Round of 16', '🏆 FINAL'],
+  nyc: ['Group stage', 'Round of 32', 'Round of 16', 'FINAL'],
   dal: ['Group stage', 'Round of 32', 'Round of 16', 'Quarter-final'],
   lax: ['Group stage', 'Round of 32', 'Round of 16', 'Quarter-final'],
   atl: ['Group stage', 'Round of 32', 'Round of 16', 'Quarter-final'],
@@ -48,8 +48,8 @@ export default function MapDrawer({ stadium }: { stadium: Stadium }) {
           {rounds.map((m, i) => (
             <span
               key={i}
-              className="ink-box"
-              style={{ padding: '3px 10px', fontFamily: 'Caveat', fontSize: 15, background: i === 3 && stadium.isFinal ? '#fef4a8' : 'white' }}
+              className="ink-box print"
+              style={{ padding: '3px 10px', fontSize: 14, color: '#4a4a4a', background: i === 3 && stadium.isFinal ? '#fef4a8' : 'white' }}
             >
               {m}
             </span>
