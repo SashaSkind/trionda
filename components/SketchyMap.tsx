@@ -93,7 +93,7 @@ export default function SketchyMap({
 
         // Country labels
         const labels: [string, number, number][] = [
-          ['CANADA', -100, 60],
+          ['CANADA', -85, 50],
           ['UNITED STATES', -98, 39],
           ['MEXICO', -102, 23.5],
         ]
