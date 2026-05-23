@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Trionda Assist — Wireframes</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&family=Patrick+Hand&family=Architects+Daughter&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #f0eee9; }
+  body { font-family: 'Kalam', 'Patrick Hand', cursive; color: #1a1a1a; }
+
+  /* TRIONDA palette — red/green/blue, the ball ----------------- */
+  :root {
+    --ink: #15171a;
+    --ink-soft: #4a4a4a;
+    --ink-faint: #8b8b8b;
+    --paper: #fbf7ee;
+    --paper-2: #f3eeda;
+    --paper-3: #e8e1c8;
+    /* host countries */
+    --red:   #E1252C;   /* Canada */
+    --green: #009A4E;   /* Mexico */
+    --blue:  #0061B2;   /* USA   */
+    --red-soft:   #fde2e3;
+    --green-soft: #d7f0e1;
+    --blue-soft:  #d4e6f7;
+    --accent: var(--red);
+    --pencil: 1.8px;
+  }
+
+  .hand   { font-family: 'Caveat', cursive; }
+  .scrawl { font-family: 'Kalam', cursive; }
+  .print  { font-family: 'Patrick Hand', cursive; }
+  .arch   { font-family: 'Architects Daughter', cursive; }
+
+  .ink-box       { border: var(--pencil) solid var(--ink); border-radius: 6px; }
+  .ink-box-soft  { border: 1.4px solid var(--ink-soft); border-radius: 6px; }
+
+  /* Buttons */
+  .btn-sketch {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border: 2px solid var(--ink); border-radius: 24px;
+    background: var(--paper); font-family: 'Caveat', cursive; font-size: 20px;
+    color: var(--ink); cursor: pointer;
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+  .btn-sketch.solid { background: var(--ink); color: var(--paper); }
+  .btn-sketch.red   { background: var(--red);   color: white; }
+  .btn-sketch.green { background: var(--green); color: white; }
+  .btn-sketch.blue  { background: var(--blue);  color: white; }
+
+  .scribble { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Artboard scaffold */
+  .ab {
+    width: 100%; height: 100%;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Kalam', cursive;
+  }
+  .ab.cream { background: #fbf7ee; }
+  .ab.beige { background: #f3eeda; }
+  .ab.parch { background: #f6efde; }
+
+  /* Annotations (designer notes) */
+  .note {
+    position: absolute;
+    font-family: 'Caveat', cursive;
+    color: var(--red);
+    font-size: 18px;
+    line-height: 1.05;
+    max-width: 220px;
+  }
+  .note .arrow { display: block; font-size: 24px; }
+
+  /* Pins on the map */
+  .pin {
+    position: absolute; width: 22px; height: 22px;
+    transform: translate(-50%, -100%);
+    cursor: pointer;
+  }
+  .pin .dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--red); border: 1.8px solid var(--ink);
+    position: absolute; left: 3px; top: 0;
+    box-shadow: 1.5px 1.5px 0 rgba(0,0,0,.15);
+  }
+  .pin.usa .dot { background: var(--blue); }
+  .pin.mex .dot { background: var(--green); }
+  .pin.can .dot { background: var(--red); }
+  .pin .stick { position: absolute; left: 9px; top: 14px; width: 1.8px; height: 8px; background: var(--ink); }
+  .pin.big .dot { width: 24px; height: 24px; left: -1px; top: -3px; }
+
+  .chat-fab {
+    display: flex; align-items: center; justify-content: center;
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--paper); border: 2.4px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  .squiggle {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='8' viewBox='0 0 80 8'><path d='M2 5 Q 10 1 18 5 T 34 5 T 50 5 T 66 5 T 80 5' fill='none' stroke='%23E1252C' stroke-width='2'/></svg>");
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    padding-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- Sketchy map deps -->
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="https://unpkg.com/roughjs@4.6.6/bundled/rough.js"></script>
+
+<!-- Image slot for the stadium hero -->
+<script src="image-slot.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="wireframes.jsx"></script>
+<script type="text/babel">
+  const { DesignCanvas, DCSection, DCArtboard, DCPostIt } = window;
+
+  function App() {
+    return (
+      <DesignCanvas
+        title="Trionda Assist — Wireframes"
+        subtitle="World Cup 2026 travel companion · sketchy low-fi using the Trionda ball palette"
+        initialZoom={0.55}
+      >
+        <DCSection
+          id="map"
+          title="01 / Map landing"
+          subtitle="Hand-drawn but real geography. Pannable. Hover or tap → bottom drawer preview."
+        >
+          <DCArtboard id="map-d" label="Hover → bottom drawer (chosen)" width={1280} height={800}>
+            <MapHoverDrawer/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection
+          id="stadium"
+          title="02 / Stadium page"
+          subtitle="Full-bleed aerial hero · matches · about the city · spots (with category filter sidebar) — all stacked."
+        >
+          <DCArtboard id="st-a" label="Stacked, spots at the bottom (chosen)" width={1280} height={2200}>
+            <StadiumStacked/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection
+          id="chat"
+          title="03 / Chat agent"
+          subtitle="Floating modal, bottom-left. Source attribution shrinks to a single line at the bottom of each answer."
+        >
+          <DCArtboard id="ch-a" label="Floating modal (default)" width={520} height={720}>
+            <ChatFloating/>
+          </DCArtboard>
+          <DCArtboard id="ch-b" label="Reddit-backed (Exa path)" width={520} height={720}>
+            <ChatReddit/>
+          </DCArtboard>
+          <DCArtboard id="ch-c" label="Maps-Places (generic path)" width={520} height={720}>
+            <ChatMaps/>
+          </DCArtboard>
+          <DCArtboard id="ch-d" label="FAB states" width={520} height={720}>
+            <ChatStates/>
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection
+          id="flow"
+          title="04 / End-to-end flow"
+          subtitle="map → pin → stadium → ask → answer. The demo, in four frames."
+        >
+          <DCArtboard id="flow-1" label="Storyboard" width={1600} height={520}>
+            <Storyboard/>
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+</body>
+</html>
