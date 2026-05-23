@@ -105,11 +105,7 @@ export default function SketchyMap({
           t.setAttribute('x', String(x))
           t.setAttribute('y', String(y))
           t.setAttribute('text-anchor', 'middle')
-          t.setAttribute('font-family', 'Caveat')
-          t.setAttribute('font-size', '34')
-          t.setAttribute('letter-spacing', '4')
-          t.setAttribute('fill', TRI.ink)
-          t.setAttribute('opacity', '0.32')
+          t.setAttribute('style', 'font-family: var(--font-caveat), cursive; font-size: 34px; letter-spacing: 4px; fill: #15171a; opacity: 0.32;')
           t.textContent = name
           svg.appendChild(t)
         })
