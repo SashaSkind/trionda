@@ -28,8 +28,13 @@ const architectsDaughter = Architects_Daughter({
 })
 
 export const metadata: Metadata = {
-  title: 'Trionda Assist — World Cup 2026 Travel Companion',
+  title: 'trionda assist',
   description: '16 stadiums. 3 countries. 1 tournament. Find your perfect World Cup match day.',
+  appleWebApp: {
+    capable: true,
+    title: 'trionda assist',
+    statusBarStyle: 'default',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
