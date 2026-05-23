@@ -72,27 +72,22 @@ export default function SketchyMap({
           if (!d) return
           const g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
 
+          // shadow pass — no stroke, just offset fill for depth
           const back = rc.path(d, {
-            roughness: 2.4, bowing: 1.8, strokeWidth: 0,
+            roughness: 0.8, bowing: 0.6, strokeWidth: 0,
             fill: fill[String(f.id)] || '#f1ece0', fillStyle: 'solid',
           })
           back.setAttribute('transform', 'translate(2.5,3)')
-          back.setAttribute('opacity', '0.45')
+          back.setAttribute('opacity', '0.4')
           g.appendChild(back)
 
+          // single clean-but-wobbly stroke pass
           const node = rc.path(d, {
-            roughness: 2.2, bowing: 1.5,
-            stroke: TRI.ink, strokeWidth: 1.8,
-            fill: fill[String(f.id)] || '#f1ece0', fillStyle: 'solid', fillWeight: 1.4,
+            roughness: 0.9, bowing: 0.7,
+            stroke: TRI.ink, strokeWidth: 1.5,
+            fill: fill[String(f.id)] || '#f1ece0', fillStyle: 'solid', fillWeight: 1.2,
           })
           g.appendChild(node)
-
-          const pass2 = rc.path(d, {
-            roughness: 3.4, bowing: 1.1,
-            stroke: TRI.ink, strokeWidth: 0.9, fill: 'none',
-          })
-          pass2.setAttribute('opacity', '0.55')
-          g.appendChild(pass2)
           svg.appendChild(g)
         })
 
@@ -118,18 +113,6 @@ export default function SketchyMap({
           t.textContent = name
           svg.appendChild(t)
         })
-
-        // Ocean swells
-        for (let i = 0; i < 18; i++) {
-          const cx = (i % 6) * (width / 6) + 40
-          const cy = (i < 6 ? 50 : i < 12 ? height - 110 : height - 50) + (i % 2) * 14
-          const swell = rc.path(
-            `M ${cx} ${cy} q 14 -8 28 0 t 28 0 t 28 0`,
-            { roughness: 2.2, bowing: 2, stroke: TRI.blue, strokeWidth: 0.9 }
-          )
-          swell.setAttribute('opacity', '0.35')
-          svg.appendChild(swell)
-        }
 
         // Project stadium pins
         const stops = STADIUMS.map(s => {
