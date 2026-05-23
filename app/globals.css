@@ -156,3 +156,80 @@ html, body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* safe-area insets for notched phones / home indicator */
+.safe-bottom {
+  bottom: max(26px, env(safe-area-inset-bottom, 0px));
+}
+.safe-bottom-fab {
+  bottom: max(26px, calc(env(safe-area-inset-bottom, 0px) + 8px));
+}
+.safe-inset-x {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* stadium page — responsive without client JS */
+@media (max-width: 640px) {
+  .stadium-nav {
+    padding: 12px 16px !important;
+    flex-wrap: wrap;
+    gap: 8px !important;
+  }
+  .stadium-nav .nav-stadium-name {
+    display: none;
+  }
+  .stadium-nav .nav-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .stadium-hero {
+    height: min(50vh, 420px) !important;
+  }
+  .stadium-hero-footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+  .stadium-hero-stats {
+    width: 100%;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+  }
+  .stadium-body {
+    padding: 24px 16px 120px !important;
+    gap: 40px !important;
+  }
+  .stadium-schedule-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .stadium-about-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .stadium-info-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .spots-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .spots-sidebar {
+    position: static !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
+  .spot-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .stadium-hero-footer {
+    left: 16px !important;
+    right: 16px !important;
+    bottom: 16px !important;
+  }
+}
+
+/* active pin — same visual as hover for touch devices */
+.map-pin.active .dot {
+  width: 19px;
+  height: 19px;
+}

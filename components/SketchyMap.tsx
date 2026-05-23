@@ -126,32 +126,70 @@ export default function SketchyMap({
     return () => { cancelled = true }
   }, [width, height])
 
-  // Drag-to-pan
+  // drag-to-pan — mouse + touch
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
-    let dragging = false, startX = 0, startY = 0, sl = 0, st = 0
-    const down = (e: MouseEvent) => {
-      const t = e.target as HTMLElement
-      if (t.closest('.map-pin') || t.closest('.preview-card')) return
+    let dragging = false
+    let startX = 0
+    let startY = 0
+    let sl = 0
+    let st = 0
+
+    const shouldIgnoreTarget = (target: EventTarget | null) => {
+      const t = target as HTMLElement | null
+      return Boolean(t?.closest('.map-pin') || t?.closest('.preview-card'))
+    }
+
+    const pointerDown = (clientX: number, clientY: number, target: EventTarget | null) => {
+      if (shouldIgnoreTarget(target)) return
       dragging = true
-      startX = e.clientX; startY = e.clientY
-      sl = el.scrollLeft; st = el.scrollTop
+      startX = clientX
+      startY = clientY
+      sl = el.scrollLeft
+      st = el.scrollTop
       el.style.cursor = 'grabbing'
     }
-    const move = (e: MouseEvent) => {
+
+    const pointerMove = (clientX: number, clientY: number) => {
       if (!dragging) return
-      el.scrollLeft = sl - (e.clientX - startX)
-      el.scrollTop = st - (e.clientY - startY)
+      el.scrollLeft = sl - (clientX - startX)
+      el.scrollTop = st - (clientY - startY)
     }
-    const up = () => { dragging = false; el.style.cursor = 'grab' }
-    el.addEventListener('mousedown', down)
-    window.addEventListener('mousemove', move)
-    window.addEventListener('mouseup', up)
+
+    const pointerUp = () => {
+      dragging = false
+      el.style.cursor = 'grab'
+    }
+
+    const onMouseDown = (e: MouseEvent) => pointerDown(e.clientX, e.clientY, e.target)
+    const onMouseMove = (e: MouseEvent) => pointerMove(e.clientX, e.clientY)
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return
+      pointerDown(e.touches[0].clientX, e.touches[0].clientY, e.target)
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      if (!dragging || e.touches.length !== 1) return
+      e.preventDefault()
+      pointerMove(e.touches[0].clientX, e.touches[0].clientY)
+    }
+
+    el.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', pointerUp)
+    el.addEventListener('touchstart', onTouchStart, { passive: true })
+    el.addEventListener('touchmove', onTouchMove, { passive: false })
+    window.addEventListener('touchend', pointerUp)
+    window.addEventListener('touchcancel', pointerUp)
+
     return () => {
-      el.removeEventListener('mousedown', down)
-      window.removeEventListener('mousemove', move)
-      window.removeEventListener('mouseup', up)
+      el.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', pointerUp)
+      el.removeEventListener('touchstart', onTouchStart)
+      el.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('touchend', pointerUp)
+      window.removeEventListener('touchcancel', pointerUp)
     }
   }, [])
 
@@ -197,6 +235,7 @@ export default function SketchyMap({
               className={`map-pin ${s.country} ${active ? 'active' : ''}`}
               style={{ left: s.x, top: s.y }}
               onMouseEnter={() => handlePinInteract(s)}
+              onTouchStart={() => handlePinInteract(s)}
               onClick={() => { handlePinInteract(s); onSelect?.(s) }}
             >
               <div className="dot" />

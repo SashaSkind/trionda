@@ -72,9 +72,9 @@ export default function SpotsSection() {
         top 5 per category · via Google Maps Places, sorted by ★
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 28, alignItems: 'flex-start' }}>
+      <div className="spots-grid" style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 28, alignItems: 'flex-start' }}>
         {/* Category sidebar */}
-        <aside style={{ display: 'flex', flexDirection: 'column', gap: 6, position: 'sticky', top: 80 }}>
+        <aside className="spots-sidebar" style={{ display: 'flex', flexDirection: 'column', gap: 6, position: 'sticky', top: 80 }}>
           {CATS.map(c => {
             const on = c.name === active
             return (
@@ -106,7 +106,7 @@ export default function SpotsSection() {
         {/* Spots list */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {list.map((s, i) => (
-            <div key={i} className="ink-box" style={{ padding: '14px 18px', background: 'white', display: 'flex', alignItems: 'center', gap: 14 }}>
+            <div key={i} className="ink-box spot-card" style={{ padding: '14px 18px', background: 'white', display: 'flex', alignItems: 'center', gap: 14 }}>
               <div style={{
                 width: 36, height: 36, borderRadius: '50%',
                 background: rankColors[i], color: rankTextColors[i],
