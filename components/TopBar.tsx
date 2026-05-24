@@ -12,16 +12,29 @@ interface TopBarProps {
 export default function TopBar({ title, right }: TopBarProps) {
   const isMobile = useIsMobile()
 
+  // on mobile the layout is a normal flex column, so TopBar lives in flow
+  // on desktop it overlays the full-screen map, so it stays absolute
+  const style = isMobile
+    ? {
+        position: 'relative' as const,
+        padding: '12px 16px',
+        zIndex: 5,
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        gap: 8,
+        flexShrink: 0,
+      }
+    : {
+        position: 'absolute' as const,
+        top: 22,
+        left: 26,
+        right: 26,
+        zIndex: 5,
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        gap: 8,
+      }
+
   return (
-    <div style={{
-      position: 'absolute',
-      top: isMobile ? 12 : 22,
-      left: isMobile ? 16 : 26,
-      right: isMobile ? 16 : 26,
-      zIndex: 5,
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      gap: 8,
-    }}>
+    <div style={style}>
       <Link href="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
         <Logo />
       </Link>
