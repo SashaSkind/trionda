@@ -39,7 +39,9 @@ export default function TopBar({ title, right }: TopBarProps) {
         <Logo />
       </Link>
       {title && !isMobile && (
-        <div className="hand squiggle" style={{ fontSize: 22, flex: 1, textAlign: 'center', minWidth: 0 }}>{title}</div>
+        <div className="hand" style={{ fontSize: 22, flex: 1, textAlign: 'center', minWidth: 0 }}>
+          <span className="squiggle">{title}</span>
+        </div>
       )}
       <div style={{ display: 'flex', gap: 12 }}>
         {right ?? (
