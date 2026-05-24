@@ -57,9 +57,9 @@ export default async function StadiumPage({ params }: { params: { id: string } }
         borderBottom: '1.4px solid rgba(21,23,26,0.08)',
       }}>
         <Link href="/" className="btn-sketch" style={{ padding: '4px 14px', fontSize: 16 }}>← Map</Link>
-        <Logo size={18} />
         <div className="hand nav-stadium-name" style={{ fontSize: 18, color: '#4a4a4a' }}>/ {stadium.name}</div>
         <div style={{ flex: 1 }} />
+        <Logo size={18} />
       </nav>
 
       {/* Hero — full-bleed */}
