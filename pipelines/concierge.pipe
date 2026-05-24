@@ -85,8 +85,8 @@
       },
       "ui": {
         "position": {
-          "x": 720,
-          "y": 240
+          "x": 700,
+          "y": 230
         },
         "nodeType": "default",
         "formDataValid": true
@@ -133,5 +133,5 @@
     10,
     10
   ],
-  "docRevision": 1
+  "docRevision": 2
 }
