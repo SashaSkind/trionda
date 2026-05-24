@@ -74,10 +74,6 @@ export default function StadiumPage({ params }: { params: { id: string } }) {
         <Logo size={18} />
         <div className="hand nav-stadium-name" style={{ fontSize: 18, color: '#4a4a4a' }}>/ {stadium.name}</div>
         <div style={{ flex: 1 }} />
-        <div className="nav-actions" style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-          <button className="btn-sketch" style={{ fontSize: 16 }}>Share</button>
-          <button className="btn-sketch solid" style={{ fontSize: 16 }}>Save trip</button>
-        </div>
       </nav>
 
       {/* Hero — full-bleed */}
