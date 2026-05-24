@@ -45,7 +45,19 @@ export default function TopBar({ title, right }: TopBarProps) {
       )}
       <div style={{ display: 'flex', gap: 12 }}>
         {right ?? (
-          <button className="btn-sketch" style={{ fontSize: 16 }}>🇬🇧 EN</button>
+          <div style={{ position: 'relative', display: 'inline-block' }}>
+            <button className="btn-sketch" style={{ fontSize: 16 }}>🇬🇧 EN</button>
+            <span style={{
+              position: 'absolute', top: 'calc(100% + 6px)', left: '50%',
+              transform: 'translateX(-50%)',
+              whiteSpace: 'nowrap',
+              fontFamily: 'var(--font-caveat), cursive',
+              fontSize: 13, color: '#8b8b8b',
+              pointerEvents: 'none',
+            }}>
+              translations coming soon
+            </span>
+          </div>
         )}
       </div>
     </div>
