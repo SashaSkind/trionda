@@ -1,5 +1,7 @@
 # Trionda Assist
 
+**🔗 Live demo: [trionda.vercel.app](https://trionda.vercel.app/)**
+
 A hand-drawn World Cup 2026 travel companion for the 16 host stadiums across the US, Canada, and Mexico. Browse a sketchy real-geo map, dig into per-stadium pages with real fixture schedules and live "spots nearby" data, and ask the floating chat agent for local tips.
 
 Built at the **GDG × RocketRide × GMI Cloud** hackathon (May 2026).
@@ -102,6 +104,8 @@ If the engine isn't running, the Concierge auto-falls back to direct Gemini stre
 | `npm run prewarm` | Hit the 4 demo stadiums with prepared queries to populate the in-memory agent cache before a live demo |
 
 ## Deployment
+
+Live at **[trionda.vercel.app](https://trionda.vercel.app/)**.
 
 Pushes to `main` auto-deploy to Vercel via `.github/workflows/deploy.yml`. Copy the same env vars from `.env.local` into the Vercel project (Settings → Environment Variables) for the **Production** environment.
 
