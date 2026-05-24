@@ -91,13 +91,19 @@ export async function runConcierge(input: RunConciergeInput, emit: ConciergeEmit
   };
   const synthesisText = await streamSynthesis(synthesisCtx, emit);
 
-  agentResultCache.set(cacheKey, {
-    intent,
-    recommendations,
-    sources,
-    synthesis: synthesisText,
-  } satisfies CachedAgentResult);
-  emit.trace('concierge', 'done', `cached as ${cacheKey}`);
+  // Only cache if we actually got usable synthesis text — otherwise a broken
+  // response (empty pipeline answer, Gemini quota error) would replay forever.
+  if (synthesisText && synthesisText.trim().length > 10) {
+    agentResultCache.set(cacheKey, {
+      intent,
+      recommendations,
+      sources,
+      synthesis: synthesisText,
+    } satisfies CachedAgentResult);
+    emit.trace('concierge', 'done', `cached as ${cacheKey}`);
+  } else {
+    emit.trace('concierge', 'done', 'not cached (empty synthesis)');
+  }
 }
 
 // ── synthesis (RocketRide if available, direct Gemini fallback) ────────────

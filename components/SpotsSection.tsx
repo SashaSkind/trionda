@@ -7,10 +7,14 @@ const TRI = { red: '#E1252C', green: '#009A4E', blue: '#0061B2', ink: '#15171a',
 interface Spot {
   name: string
   meta: string
-  why: string
+  why?: string
+  mapsUrl?: string
 }
 
-const SPOTS: Record<string, Spot[]> = {
+// Static fallback shown only when no `spots` prop is passed (e.g. when the
+// Google Maps API key isn't set or the page is rendered without server data).
+// In normal operation, the stadium page passes real per-stadium results.
+const FALLBACK_SPOTS: Record<string, Spot[]> = {
   Food: [
     { name: 'La Taqueria',             meta: '4.8 · $$ · Tacos · 0.8 mi',          why: 'best al pastor in the bay' },
     { name: 'Mi Pueblo Food Center',   meta: '4.7 · $ · Mexican · 1.1 mi',         why: 'walkable from VTA' },
@@ -49,19 +53,24 @@ const SPOTS: Record<string, Spot[]> = {
 }
 
 const CATS = [
-  { name: 'Food',       emoji: '🍴', n: 5 },
-  { name: 'Coffee',     emoji: '☕', n: 5 },
-  { name: 'Shopping',   emoji: '🛍', n: 5 },
-  { name: 'Nightlife',  emoji: '🍺', n: 5 },
-  { name: 'Activities', emoji: '✨', n: 5 },
+  { name: 'Food',       emoji: '🍴' },
+  { name: 'Coffee',     emoji: '☕' },
+  { name: 'Shopping',   emoji: '🛍' },
+  { name: 'Nightlife',  emoji: '🍺' },
+  { name: 'Activities', emoji: '✨' },
 ]
 
 const rankColors = [TRI.red, TRI.blue, TRI.green, '#fef4a8', '#fef4a8']
 const rankTextColors = ['white', 'white', 'white', TRI.ink, TRI.ink]
 
-export default function SpotsSection() {
+interface Props {
+  spots?: Record<string, Spot[]>
+}
+
+export default function SpotsSection({ spots }: Props) {
+  const data = spots && Object.keys(spots).length > 0 ? spots : FALLBACK_SPOTS
   const [active, setActive] = useState('Food')
-  const list = SPOTS[active] || []
+  const list = data[active] || []
 
   return (
     <section>
@@ -77,6 +86,7 @@ export default function SpotsSection() {
         <aside style={{ display: 'flex', flexDirection: 'column', gap: 6, position: 'sticky', top: 80 }}>
           {CATS.map(c => {
             const on = c.name === active
+            const n = (data[c.name] ?? []).length
             return (
               <button
                 key={c.name}
@@ -94,7 +104,7 @@ export default function SpotsSection() {
               >
                 <span style={{ fontSize: 22 }}>{c.emoji}</span>
                 <span style={{ flex: 1 }}>{c.name}</span>
-                <span className="print" style={{ fontSize: 13, opacity: on ? 0.8 : 0.5 }}>{c.n}</span>
+                <span className="print" style={{ fontSize: 13, opacity: on ? 0.8 : 0.5 }}>{n}</span>
               </button>
             )
           })}
@@ -105,6 +115,11 @@ export default function SpotsSection() {
 
         {/* Spots list */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {list.length === 0 && (
+            <div className="ink-box" style={{ padding: '18px 22px', background: 'white', color: TRI.inkSoft, fontFamily: 'var(--font-caveat), cursive', fontSize: 18 }}>
+              no {active.toLowerCase()} spots yet — Google Places hasn't returned results for this stadium.
+            </div>
+          )}
           {list.map((s, i) => (
             <div key={i} className="ink-box" style={{ padding: '14px 18px', background: 'white', display: 'flex', alignItems: 'center', gap: 14 }}>
               <div style={{
@@ -118,11 +133,25 @@ export default function SpotsSection() {
               <div style={{ flex: 1 }}>
                 <div className="hand" style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.1 }}>{s.name}</div>
                 <div className="print" style={{ fontSize: 13, color: TRI.inkSoft }}>{s.meta}</div>
-                <div className="print" style={{ fontSize: 13, color: TRI.red, fontStyle: 'italic' }}>"{s.why}"</div>
+                {s.why && (
+                  <div className="print" style={{ fontSize: 13, color: TRI.red, fontStyle: 'italic' }}>"{s.why}"</div>
+                )}
               </div>
-              <button className="btn-sketch" style={{ fontSize: 14, padding: '3px 10px', flexShrink: 0 }}>
-                open in maps ↗
-              </button>
+              {s.mapsUrl ? (
+                <a
+                  href={s.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-sketch"
+                  style={{ fontSize: 14, padding: '3px 10px', flexShrink: 0, textDecoration: 'none' }}
+                >
+                  open in maps ↗
+                </a>
+              ) : (
+                <button className="btn-sketch" style={{ fontSize: 14, padding: '3px 10px', flexShrink: 0 }}>
+                  open in maps ↗
+                </button>
+              )}
             </div>
           ))}
         </div>

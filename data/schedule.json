@@ -1,0 +1,675 @@
+{
+  "mex": [
+    {
+      "teams": "🇲🇽 Mexico  vs  🇿🇦 South Africa",
+      "date": "Thu Jun 11",
+      "time": "1:00 PM CT",
+      "stage": "Group A · Match 1",
+      "highlight": true
+    },
+    {
+      "teams": "🇺🇿 Uzbekistan  vs  🇨🇴 Colombia",
+      "date": "Wed Jun 17",
+      "time": "8:00 PM CT",
+      "stage": "Group K · Match 24"
+    },
+    {
+      "teams": "🇨🇿 Czech Republic  vs  🇲🇽 Mexico",
+      "date": "Wed Jun 24",
+      "time": "7:00 PM CT",
+      "stage": "Group A · Match 53"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Tue Jun 30",
+      "time": "7:00 PM CT",
+      "stage": "Round of 32 · Match 79"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sun Jul 5",
+      "time": "6:00 PM CT",
+      "stage": "Round of 16 · Match 92"
+    }
+  ],
+  "gdl": [
+    {
+      "teams": "🇰🇷 South Korea  vs  🇨🇿 Czech Republic",
+      "date": "Thu Jun 11",
+      "time": "8:00 PM CT",
+      "stage": "Group A · Match 2",
+      "highlight": true
+    },
+    {
+      "teams": "🇲🇽 Mexico  vs  🇰🇷 South Korea",
+      "date": "Thu Jun 18",
+      "time": "7:00 PM CT",
+      "stage": "Group A · Match 28"
+    },
+    {
+      "teams": "🇨🇴 Colombia  vs  🇨🇩 DR Congo",
+      "date": "Tue Jun 23",
+      "time": "8:00 PM CT",
+      "stage": "Group K · Match 48"
+    },
+    {
+      "teams": "🇺🇾 Uruguay  vs  🇪🇸 Spain",
+      "date": "Fri Jun 26",
+      "time": "6:00 PM CT",
+      "stage": "Group H · Match 66"
+    }
+  ],
+  "atl": [
+    {
+      "teams": "🇪🇸 Spain  vs  🇨🇻 Cape Verde",
+      "date": "Mon Jun 15",
+      "time": "12:00 PM ET",
+      "stage": "Group H · Match 14",
+      "highlight": true
+    },
+    {
+      "teams": "🇨🇿 Czech Republic  vs  🇿🇦 South Africa",
+      "date": "Thu Jun 18",
+      "time": "12:00 PM ET",
+      "stage": "Group A · Match 25"
+    },
+    {
+      "teams": "🇪🇸 Spain  vs  🇸🇦 Saudi Arabia",
+      "date": "Sun Jun 21",
+      "time": "12:00 PM ET",
+      "stage": "Group H · Match 38"
+    },
+    {
+      "teams": "🇲🇦 Morocco  vs  🇭🇹 Haiti",
+      "date": "Wed Jun 24",
+      "time": "6:00 PM ET",
+      "stage": "Group C · Match 50"
+    },
+    {
+      "teams": "🇨🇩 DR Congo  vs  🇺🇿 Uzbekistan",
+      "date": "Sat Jun 27",
+      "time": "7:30 PM ET",
+      "stage": "Group K · Match 72"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Wed Jul 1",
+      "time": "12:00 PM ET",
+      "stage": "Round of 32 · Match 80"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Tue Jul 7",
+      "time": "12:00 PM ET",
+      "stage": "Round of 16 · Match 95"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Wed Jul 15",
+      "time": "3:00 PM ET",
+      "stage": "Semi-final · Match 102"
+    }
+  ],
+  "mty": [
+    {
+      "teams": "🇸🇪 Sweden  vs  🇹🇳 Tunisia",
+      "date": "Sun Jun 14",
+      "time": "8:00 PM CT",
+      "stage": "Group F · Match 12",
+      "highlight": true
+    },
+    {
+      "teams": "🇹🇳 Tunisia  vs  🇯🇵 Japan",
+      "date": "Sat Jun 20",
+      "time": "10:00 PM CT",
+      "stage": "Group F · Match 36"
+    },
+    {
+      "teams": "🇿🇦 South Africa  vs  🇰🇷 South Korea",
+      "date": "Wed Jun 24",
+      "time": "7:00 PM CT",
+      "stage": "Group A · Match 54"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Mon Jun 29",
+      "time": "7:00 PM CT",
+      "stage": "Round of 32 · Match 75"
+    }
+  ],
+  "tor": [
+    {
+      "teams": "🇨🇦 Canada  vs  🇧🇦 Bosnia and Herzegovina",
+      "date": "Fri Jun 12",
+      "time": "3:00 PM ET",
+      "stage": "Group B · Match 3",
+      "highlight": true
+    },
+    {
+      "teams": "🇬🇭 Ghana  vs  🇵🇦 Panama",
+      "date": "Wed Jun 17",
+      "time": "7:00 PM ET",
+      "stage": "Group L · Match 21"
+    },
+    {
+      "teams": "🇩🇪 Germany  vs  🇨🇮 Ivory Coast",
+      "date": "Sat Jun 20",
+      "time": "4:00 PM ET",
+      "stage": "Group E · Match 33"
+    },
+    {
+      "teams": "🇵🇦 Panama  vs  🇭🇷 Croatia",
+      "date": "Tue Jun 23",
+      "time": "7:00 PM ET",
+      "stage": "Group L · Match 46"
+    },
+    {
+      "teams": "🇸🇳 Senegal  vs  🇮🇶 Iraq",
+      "date": "Fri Jun 26",
+      "time": "3:00 PM ET",
+      "stage": "Group I · Match 62"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Thu Jul 2",
+      "time": "7:00 PM ET",
+      "stage": "Round of 32 · Match 83"
+    }
+  ],
+  "sfo": [
+    {
+      "teams": "🇶🇦 Qatar  vs  🇨🇭 Switzerland",
+      "date": "Sat Jun 13",
+      "time": "12:00 PM PT",
+      "stage": "Group B · Match 8",
+      "highlight": true
+    },
+    {
+      "teams": "🇦🇹 Austria  vs  🇯🇴 Jordan",
+      "date": "Tue Jun 16",
+      "time": "9:00 PM PT",
+      "stage": "Group J · Match 20"
+    },
+    {
+      "teams": "🇹🇷 Turkey  vs  🇵🇾 Paraguay",
+      "date": "Fri Jun 19",
+      "time": "8:00 PM PT",
+      "stage": "Group D · Match 31"
+    },
+    {
+      "teams": "🇯🇴 Jordan  vs  🇩🇿 Algeria",
+      "date": "Mon Jun 22",
+      "time": "8:00 PM PT",
+      "stage": "Group J · Match 44"
+    },
+    {
+      "teams": "🇵🇾 Paraguay  vs  🇦🇺 Australia",
+      "date": "Thu Jun 25",
+      "time": "7:00 PM PT",
+      "stage": "Group D · Match 60"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Wed Jul 1",
+      "time": "5:00 PM PT",
+      "stage": "Round of 32 · Match 81"
+    }
+  ],
+  "lax": [
+    {
+      "teams": "🇺🇸 United States  vs  🇵🇾 Paraguay",
+      "date": "Fri Jun 12",
+      "time": "6:00 PM PT",
+      "stage": "Group D · Match 4",
+      "highlight": true
+    },
+    {
+      "teams": "🇮🇷 Iran  vs  🇳🇿 New Zealand",
+      "date": "Mon Jun 15",
+      "time": "6:00 PM PT",
+      "stage": "Group G · Match 15"
+    },
+    {
+      "teams": "🇨🇭 Switzerland  vs  🇧🇦 Bosnia and Herzegovina",
+      "date": "Thu Jun 18",
+      "time": "12:00 PM PT",
+      "stage": "Group B · Match 26"
+    },
+    {
+      "teams": "🇧🇪 Belgium  vs  🇮🇷 Iran",
+      "date": "Sun Jun 21",
+      "time": "12:00 PM PT",
+      "stage": "Group G · Match 39"
+    },
+    {
+      "teams": "🇹🇷 Turkey  vs  🇺🇸 United States",
+      "date": "Thu Jun 25",
+      "time": "7:00 PM PT",
+      "stage": "Group D · Match 59"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sun Jun 28",
+      "time": "12:00 PM PT",
+      "stage": "Round of 32 · Match 73"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Thu Jul 2",
+      "time": "12:00 PM PT",
+      "stage": "Round of 32 · Match 84"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Fri Jul 10",
+      "time": "12:00 PM PT",
+      "stage": "Quarter-final · Match 98"
+    }
+  ],
+  "van": [
+    {
+      "teams": "🇦🇺 Australia  vs  🇹🇷 Turkey",
+      "date": "Sat Jun 13",
+      "time": "9:00 PM PT",
+      "stage": "Group D · Match 6",
+      "highlight": true
+    },
+    {
+      "teams": "🇨🇦 Canada  vs  🇶🇦 Qatar",
+      "date": "Thu Jun 18",
+      "time": "3:00 PM PT",
+      "stage": "Group B · Match 27"
+    },
+    {
+      "teams": "🇳🇿 New Zealand  vs  🇪🇬 Egypt",
+      "date": "Sun Jun 21",
+      "time": "6:00 PM PT",
+      "stage": "Group G · Match 40"
+    },
+    {
+      "teams": "🇨🇭 Switzerland  vs  🇨🇦 Canada",
+      "date": "Wed Jun 24",
+      "time": "12:00 PM PT",
+      "stage": "Group B · Match 51"
+    },
+    {
+      "teams": "🇳🇿 New Zealand  vs  🇧🇪 Belgium",
+      "date": "Fri Jun 26",
+      "time": "8:00 PM PT",
+      "stage": "Group G · Match 64"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Thu Jul 2",
+      "time": "8:00 PM PT",
+      "stage": "Round of 32 · Match 85"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Tue Jul 7",
+      "time": "1:00 PM PT",
+      "stage": "Round of 16 · Match 96"
+    }
+  ],
+  "sea": [
+    {
+      "teams": "🇧🇪 Belgium  vs  🇪🇬 Egypt",
+      "date": "Mon Jun 15",
+      "time": "12:00 PM PT",
+      "stage": "Group G · Match 16",
+      "highlight": true
+    },
+    {
+      "teams": "🇺🇸 United States  vs  🇦🇺 Australia",
+      "date": "Fri Jun 19",
+      "time": "12:00 PM PT",
+      "stage": "Group D · Match 32"
+    },
+    {
+      "teams": "🇧🇦 Bosnia and Herzegovina  vs  🇶🇦 Qatar",
+      "date": "Wed Jun 24",
+      "time": "12:00 PM PT",
+      "stage": "Group B · Match 52"
+    },
+    {
+      "teams": "🇪🇬 Egypt  vs  🇮🇷 Iran",
+      "date": "Fri Jun 26",
+      "time": "8:00 PM PT",
+      "stage": "Group G · Match 63"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Wed Jul 1",
+      "time": "1:00 PM PT",
+      "stage": "Round of 32 · Match 82"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Mon Jul 6",
+      "time": "5:00 PM PT",
+      "stage": "Round of 16 · Match 94"
+    }
+  ],
+  "bos": [
+    {
+      "teams": "🇭🇹 Haiti  vs  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland",
+      "date": "Sat Jun 13",
+      "time": "9:00 PM ET",
+      "stage": "Group C · Match 5",
+      "highlight": true
+    },
+    {
+      "teams": "🇮🇶 Iraq  vs  🇳🇴 Norway",
+      "date": "Tue Jun 16",
+      "time": "6:00 PM ET",
+      "stage": "Group I · Match 18"
+    },
+    {
+      "teams": "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland  vs  🇲🇦 Morocco",
+      "date": "Fri Jun 19",
+      "time": "6:00 PM ET",
+      "stage": "Group C · Match 30"
+    },
+    {
+      "teams": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 England  vs  🇬🇭 Ghana",
+      "date": "Tue Jun 23",
+      "time": "4:00 PM ET",
+      "stage": "Group L · Match 45"
+    },
+    {
+      "teams": "🇳🇴 Norway  vs  🇫🇷 France",
+      "date": "Fri Jun 26",
+      "time": "3:00 PM ET",
+      "stage": "Group I · Match 61"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Mon Jun 29",
+      "time": "4:30 PM ET",
+      "stage": "Round of 32 · Match 74"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Thu Jul 9",
+      "time": "4:00 PM ET",
+      "stage": "Quarter-final · Match 97"
+    }
+  ],
+  "nyc": [
+    {
+      "teams": "🇧🇷 Brazil  vs  🇲🇦 Morocco",
+      "date": "Sat Jun 13",
+      "time": "6:00 PM ET",
+      "stage": "Group C · Match 7",
+      "highlight": true
+    },
+    {
+      "teams": "🇫🇷 France  vs  🇸🇳 Senegal",
+      "date": "Tue Jun 16",
+      "time": "3:00 PM ET",
+      "stage": "Group I · Match 17"
+    },
+    {
+      "teams": "🇳🇴 Norway  vs  🇸🇳 Senegal",
+      "date": "Mon Jun 22",
+      "time": "8:00 PM ET",
+      "stage": "Group I · Match 41"
+    },
+    {
+      "teams": "🇪🇨 Ecuador  vs  🇩🇪 Germany",
+      "date": "Thu Jun 25",
+      "time": "4:00 PM ET",
+      "stage": "Group E · Match 56"
+    },
+    {
+      "teams": "🇵🇦 Panama  vs  🏴󠁧󠁢󠁥󠁮󠁧󠁿 England",
+      "date": "Sat Jun 27",
+      "time": "5:00 PM ET",
+      "stage": "Group L · Match 67"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Tue Jun 30",
+      "time": "5:00 PM ET",
+      "stage": "Round of 32 · Match 77"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sun Jul 5",
+      "time": "4:00 PM ET",
+      "stage": "Round of 16 · Match 91"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sun Jul 19",
+      "time": "3:00 PM ET",
+      "stage": "🏆 World Cup Final",
+      "highlight": true
+    }
+  ],
+  "phi": [
+    {
+      "teams": "🇨🇮 Ivory Coast  vs  🇪🇨 Ecuador",
+      "date": "Sun Jun 14",
+      "time": "7:00 PM ET",
+      "stage": "Group E · Match 9",
+      "highlight": true
+    },
+    {
+      "teams": "🇧🇷 Brazil  vs  🇭🇹 Haiti",
+      "date": "Fri Jun 19",
+      "time": "8:30 PM ET",
+      "stage": "Group C · Match 29"
+    },
+    {
+      "teams": "🇫🇷 France  vs  🇮🇶 Iraq",
+      "date": "Mon Jun 22",
+      "time": "5:00 PM ET",
+      "stage": "Group I · Match 42"
+    },
+    {
+      "teams": "🇨🇼 Curaçao  vs  🇨🇮 Ivory Coast",
+      "date": "Thu Jun 25",
+      "time": "4:00 PM ET",
+      "stage": "Group E · Match 55"
+    },
+    {
+      "teams": "🇭🇷 Croatia  vs  🇬🇭 Ghana",
+      "date": "Sat Jun 27",
+      "time": "5:00 PM ET",
+      "stage": "Group L · Match 68"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sat Jul 4",
+      "time": "5:00 PM ET",
+      "stage": "Round of 16 · Match 89"
+    }
+  ],
+  "mia": [
+    {
+      "teams": "🇸🇦 Saudi Arabia  vs  🇺🇾 Uruguay",
+      "date": "Mon Jun 15",
+      "time": "6:00 PM ET",
+      "stage": "Group H · Match 13",
+      "highlight": true
+    },
+    {
+      "teams": "🇺🇾 Uruguay  vs  🇨🇻 Cape Verde",
+      "date": "Sun Jun 21",
+      "time": "6:00 PM ET",
+      "stage": "Group H · Match 37"
+    },
+    {
+      "teams": "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland  vs  🇧🇷 Brazil",
+      "date": "Wed Jun 24",
+      "time": "6:00 PM ET",
+      "stage": "Group C · Match 49"
+    },
+    {
+      "teams": "🇨🇴 Colombia  vs  🇵🇹 Portugal",
+      "date": "Sat Jun 27",
+      "time": "7:30 PM ET",
+      "stage": "Group K · Match 71"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Fri Jul 3",
+      "time": "6:00 PM ET",
+      "stage": "Round of 32 · Match 86"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sat Jul 11",
+      "time": "5:00 PM ET",
+      "stage": "Quarter-final · Match 99"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sat Jul 18",
+      "time": "5:00 PM ET",
+      "stage": "Third Place · Match 103"
+    }
+  ],
+  "hou": [
+    {
+      "teams": "🇩🇪 Germany  vs  🇨🇼 Curaçao",
+      "date": "Sun Jun 14",
+      "time": "12:00 PM CT",
+      "stage": "Group E · Match 10",
+      "highlight": true
+    },
+    {
+      "teams": "🇵🇹 Portugal  vs  🇨🇩 DR Congo",
+      "date": "Wed Jun 17",
+      "time": "12:00 PM CT",
+      "stage": "Group K · Match 23"
+    },
+    {
+      "teams": "🇳🇱 Netherlands  vs  🇸🇪 Sweden",
+      "date": "Sat Jun 20",
+      "time": "12:00 PM CT",
+      "stage": "Group F · Match 35"
+    },
+    {
+      "teams": "🇵🇹 Portugal  vs  🇺🇿 Uzbekistan",
+      "date": "Tue Jun 23",
+      "time": "12:00 PM CT",
+      "stage": "Group K · Match 47"
+    },
+    {
+      "teams": "🇨🇻 Cape Verde  vs  🇸🇦 Saudi Arabia",
+      "date": "Fri Jun 26",
+      "time": "7:00 PM CT",
+      "stage": "Group H · Match 65"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Mon Jun 29",
+      "time": "12:00 PM CT",
+      "stage": "Round of 32 · Match 76"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sat Jul 4",
+      "time": "12:00 PM CT",
+      "stage": "Round of 16 · Match 90"
+    }
+  ],
+  "kc": [
+    {
+      "teams": "🇦🇷 Argentina  vs  🇩🇿 Algeria",
+      "date": "Tue Jun 16",
+      "time": "8:00 PM CT",
+      "stage": "Group J · Match 19",
+      "highlight": true
+    },
+    {
+      "teams": "🇪🇨 Ecuador  vs  🇨🇼 Curaçao",
+      "date": "Sat Jun 20",
+      "time": "7:00 PM CT",
+      "stage": "Group E · Match 34"
+    },
+    {
+      "teams": "🇹🇳 Tunisia  vs  🇳🇱 Netherlands",
+      "date": "Thu Jun 25",
+      "time": "6:00 PM CT",
+      "stage": "Group F · Match 58"
+    },
+    {
+      "teams": "🇩🇿 Algeria  vs  🇦🇹 Austria",
+      "date": "Sat Jun 27",
+      "time": "9:00 PM CT",
+      "stage": "Group J · Match 69"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Fri Jul 3",
+      "time": "8:30 PM CT",
+      "stage": "Round of 32 · Match 87"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Sat Jul 11",
+      "time": "8:00 PM CT",
+      "stage": "Quarter-final · Match 100"
+    }
+  ],
+  "dal": [
+    {
+      "teams": "🇳🇱 Netherlands  vs  🇯🇵 Japan",
+      "date": "Sun Jun 14",
+      "time": "3:00 PM CT",
+      "stage": "Group F · Match 11",
+      "highlight": true
+    },
+    {
+      "teams": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 England  vs  🇭🇷 Croatia",
+      "date": "Wed Jun 17",
+      "time": "3:00 PM CT",
+      "stage": "Group L · Match 22"
+    },
+    {
+      "teams": "🇦🇷 Argentina  vs  🇦🇹 Austria",
+      "date": "Mon Jun 22",
+      "time": "12:00 PM CT",
+      "stage": "Group J · Match 43"
+    },
+    {
+      "teams": "🇯🇵 Japan  vs  🇸🇪 Sweden",
+      "date": "Thu Jun 25",
+      "time": "6:00 PM CT",
+      "stage": "Group F · Match 57"
+    },
+    {
+      "teams": "🇯🇴 Jordan  vs  🇦🇷 Argentina",
+      "date": "Sat Jun 27",
+      "time": "9:00 PM CT",
+      "stage": "Group J · Match 70"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Tue Jun 30",
+      "time": "12:00 PM CT",
+      "stage": "Round of 32 · Match 78"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Fri Jul 3",
+      "time": "1:00 PM CT",
+      "stage": "Round of 32 · Match 88"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Mon Jul 6",
+      "time": "2:00 PM CT",
+      "stage": "Round of 16 · Match 93"
+    },
+    {
+      "teams": "⬜ TBD  vs  ⬜ TBD",
+      "date": "Tue Jul 14",
+      "time": "2:00 PM CT",
+      "stage": "Semi-final · Match 101"
+    }
+  ]
+}

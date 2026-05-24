@@ -70,12 +70,17 @@ export function getFanFestivals(stadiumId: string, date?: string): OfficialEvent
 }
 
 function placesQuery(intent: Intent): string {
+  // Fan-zone queries get a curated template — Places has FIFA fan-fest pages
+  // indexed cleanly under that exact phrasing.
   if (intent.vibe_tags.includes('fan-zone') || intent.vibe_tags.includes('watch-party')) {
     return `World Cup watch party near ${intent.stadium}`;
   }
-  if (intent.vibe_tags.includes('food')) return `restaurants near ${intent.stadium}`;
-  if (intent.vibe_tags.includes('family')) return `family restaurants near ${intent.stadium}`;
-  return `sports bar near ${intent.stadium}`;
+  // For everything else, hand Places the user's actual question — it
+  // preserves specificity (taco / ramen / rooftop / late-night) that
+  // vibe_tags alone strip out. Places semantic search ranks descriptive
+  // nouns over filler words like "find me / nearby".
+  const raw = intent.raw.trim();
+  return raw ? `${raw} near ${intent.stadium}` : `restaurants near ${intent.stadium}`;
 }
 
 // Stub: when time_window is set, we'd intersect with regular_opening_hours.

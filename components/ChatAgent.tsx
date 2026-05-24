@@ -15,7 +15,17 @@ interface Message {
   from: 'user' | 'agent'
   text: string
   source?: string
+  sources?: { title: string; url: string; snippet: string }[]
 }
+
+interface TraceEvent {
+  agent: 'concierge' | 'scout' | 'official-events'
+  phase: string
+  detail?: string
+}
+
+// Default stadium when chat is used on the homepage (no /stadium/[id] context).
+const DEFAULT_STADIUM_ID = 'lax'
 
 const SUGGESTED_QUESTIONS = [
   ['where do locals get coffee?', TRI.red],
@@ -117,6 +127,7 @@ export default function ChatAgent() {
   const [open, setOpen] = useState(false)
   const [fabState, setFabState] = useState<FabState>('idle')
   const [messages, setMessages] = useState<Message[]>([])
+  const [trace, setTrace] = useState<TraceEvent[]>([])
   const [input, setInput] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -145,20 +156,120 @@ export default function ChatAgent() {
     }
   }, [messages])
 
-  const sendMessage = (text: string) => {
+  const sendMessage = async (text: string) => {
     const q = text.trim()
     if (!q) return
     setInput('')
-    setMessages(prev => [...prev, { from: 'user', text: q }])
+    setMessages(prev => [
+      ...prev,
+      { from: 'user', text: q },
+      { from: 'agent', text: '' }, // empty bubble we'll stream tokens into
+    ])
+    setTrace([])
     setFabState('thinking')
 
-    setTimeout(() => {
-      const response = getMockResponse(q)
-      setMessages(prev => [...prev, { from: 'agent', text: response.text, source: response.source }])
+    const stadiumSlug = stadium?.id ?? DEFAULT_STADIUM_ID
+
+    try {
+      const res = await fetch('/api/concierge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: q, stadiumSlug }),
+      })
+      if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`)
+
+      const reader = res.body.getReader()
+      const decoder = new TextDecoder()
+      let buf = ''
+      let saw_done = false
+
+      while (!saw_done) {
+        const { value, done } = await reader.read()
+        if (done) break
+        buf += decoder.decode(value, { stream: true })
+        let sep
+        while ((sep = buf.indexOf('\n\n')) !== -1) {
+          const chunk = buf.slice(0, sep)
+          buf = buf.slice(sep + 2)
+          const dataLine = chunk.split('\n').find(l => l.startsWith('data:'))
+          if (!dataLine) continue
+          let event: { type: string; [k: string]: unknown }
+          try { event = JSON.parse(dataLine.slice(5).trim()) } catch { continue }
+
+          if (event.type === 'token') {
+            const piece = String(event.text ?? '')
+            setMessages(prev => {
+              const next = [...prev]
+              const last = next[next.length - 1]
+              if (last?.from === 'agent') next[next.length - 1] = { ...last, text: last.text + piece }
+              return next
+            })
+          } else if (event.type === 'sources') {
+            const items = (event.items as { title: string; url: string; snippet: string }[]) ?? []
+            const firstReddit = items.find(s => /reddit\.com/i.test(s.url))
+            const display = firstReddit ?? items[0]
+            setMessages(prev => {
+              const next = [...prev]
+              const last = next[next.length - 1]
+              if (last?.from === 'agent') {
+                next[next.length - 1] = {
+                  ...last,
+                  source: display?.title ?? last.source,
+                  sources: items,
+                }
+              }
+              return next
+            })
+          } else if (event.type === 'trace') {
+            setTrace(prev => [...prev, {
+              agent: event.agent as TraceEvent['agent'],
+              phase: String(event.phase),
+              detail: typeof event.detail === 'string' ? event.detail : undefined,
+            }])
+          } else if (event.type === 'error') {
+            // Surface backend errors in the empty bubble instead of leaving
+            // the user staring at a blank box. Common case: Gemini quota.
+            const msg = String(event.message ?? 'unknown error')
+            const short = /quota|RESOURCE_EXHAUSTED/i.test(msg)
+              ? 'Gemini API quota exhausted (free tier is 20/day). Enable billing on the Google Cloud project or wait for the daily reset.'
+              : msg.slice(0, 240)
+            setMessages(prev => {
+              const next = [...prev]
+              const last = next[next.length - 1]
+              if (last?.from === 'agent' && !last.text) {
+                next[next.length - 1] = { ...last, text: `⚠️ ${short}` }
+              }
+              return next
+            })
+          } else if (event.type === 'done') {
+            saw_done = true
+          }
+        }
+      }
+
       setFabState('answered')
       setTimeout(() => setFabState('idle'), 3000)
-    }, 800 + Math.random() * 600)
+    } catch {
+      // Backend unreachable — fall back to the static mock so the demo never fully breaks.
+      const fb = getMockResponse(q)
+      setMessages(prev => {
+        const next = [...prev]
+        const last = next[next.length - 1]
+        if (last?.from === 'agent' && last.text === '') {
+          next[next.length - 1] = { ...last, text: fb.text, source: fb.source }
+        } else {
+          next.push({ from: 'agent', text: fb.text, source: fb.source })
+        }
+        return next
+      })
+      setFabState('answered')
+      setTimeout(() => setFabState('idle'), 3000)
+    }
   }
+
+  // Map agent name → brand color for the inline trace panel.
+  const agentColor = (a: TraceEvent['agent']) =>
+    a === 'concierge' ? TRI.blue : a === 'scout' ? TRI.green : TRI.red
 
   return (
     <>
@@ -205,11 +316,41 @@ export default function ChatAgent() {
             {messages.map((m, i) => (
               <Bubble key={i} from={m.from} text={m.text} source={m.source} />
             ))}
-            {fabState === 'thinking' && (
+            {fabState === 'thinking' && trace.length === 0 && (
               <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 12 }}>
                 <div className="ink-box" style={{ padding: '10px 14px', background: 'white', borderRadius: '14px 14px 14px 4px', fontFamily: 'Caveat', fontSize: 22, color: TRI.red }}>
                   ...
                 </div>
+              </div>
+            )}
+            {trace.length > 0 && (
+              <div style={{
+                margin: '4px 0 12px',
+                padding: '8px 10px',
+                background: 'rgba(0, 153, 78, 0.05)',
+                border: `1px dashed ${TRI.green}`,
+                borderRadius: 8,
+                fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
+                fontSize: 10,
+                lineHeight: 1.5,
+                color: TRI.inkSoft,
+                maxHeight: 110,
+                overflowY: 'auto',
+              }}>
+                <div style={{
+                  color: TRI.green, marginBottom: 4,
+                  fontFamily: 'var(--font-caveat), cursive', fontSize: 13,
+                }}>
+                  ↳ agent activity
+                </div>
+                {trace.slice(-6).map((t, i) => (
+                  <div key={i} style={{ marginBottom: 2 }}>
+                    <span style={{ color: agentColor(t.agent), fontWeight: 600 }}>{t.agent}</span>
+                    <span style={{ opacity: 0.5 }}> · </span>
+                    <span>{t.phase}</span>
+                    {t.detail && <span style={{ opacity: 0.6 }}>: {t.detail}</span>}
+                  </div>
+                ))}
               </div>
             )}
             {/* Suggested questions when only welcome message */}

@@ -5,50 +5,36 @@ import Logo from '@/components/Logo'
 import ScheduleCard from '@/components/ScheduleCard'
 import SpotsSection from '@/components/SpotsSection'
 import { STADIUMS, getStadium } from '@/lib/stadiums'
+import { getSpotsByCategory } from '@/lib/spots'
 
 export function generateStaticParams() {
   return STADIUMS.map(s => ({ id: s.id }))
 }
 
-const SCHEDULE: Record<string, Array<{ teams: string; date: string; time: string; stage: string; highlight?: boolean }>> = {
-  sfo: [
-    { teams: '🇧🇷 Brazil  vs  🇦🇷 Argentina',  date: 'Sat Jun 13', time: '8:00 PM PT',  stage: 'Group A · Match 8', highlight: true },
-    { teams: '🇪🇸 Spain  vs  🇲🇽 Mexico',      date: 'Mon Jun 15', time: '5:00 PM PT',  stage: 'Group B · Match 12' },
-    { teams: '🇯🇵 Japan  vs  🇩🇪 Germany',     date: 'Thu Jun 18', time: '2:00 PM PT',  stage: 'Group D · Match 19' },
-    { teams: '🇫🇷 France  vs  🇧🇪 Belgium',    date: 'Sun Jun 21', time: '11:00 AM PT', stage: 'Group F · Match 27' },
-    { teams: 'TBD  vs  TBD',                    date: 'Sat Jun 27', time: '11:00 AM PT', stage: 'Round of 32 · Match 41' },
-    { teams: 'TBD  vs  TBD',                    date: 'Wed Jul 01', time: '2:00 PM PT',  stage: 'Round of 16 · Match 53' },
-  ],
-  nyc: [
-    { teams: '🇩🇪 Germany  vs  🇯🇵 Japan',    date: 'Wed Jun 14', time: '5:00 PM ET',  stage: 'Group D · Match 11', highlight: true },
-    { teams: '🇺🇸 USA  vs  🇨🇳 China',         date: 'Sat Jun 17', time: '7:00 PM ET',  stage: 'Group E · Match 21' },
-    { teams: '🇧🇷 Brazil  vs  🇵🇹 Portugal',  date: 'Tue Jun 20', time: '8:00 PM ET',  stage: 'Group G · Match 30' },
-    { teams: 'TBD  vs  TBD',                    date: 'Mon Jun 26', time: '3:00 PM ET',  stage: 'Round of 32 · Match 37' },
-    { teams: 'TBD  vs  TBD',                    date: 'Fri Jul 04', time: '6:00 PM ET',  stage: 'Quarter-final · Match 57' },
-    { teams: 'TBD  vs  TBD',                    date: 'Tue Jul 09', time: '3:00 PM ET',  stage: 'Semi-final · Match 61' },
-    { teams: 'TBD  vs  TBD',                    date: 'Sun Jul 19', time: '3:00 PM ET',  stage: '🏆 World Cup Final', highlight: true },
-    { teams: 'TBD  vs  TBD',                    date: 'Sat Jul 12', time: '3:00 PM ET',  stage: 'Third Place · Match 63' },
-  ],
-}
+import scheduleData from '@/data/schedule.json'
 
-function getSchedule(id: string) {
+type ScheduleEntry = { teams: string; date: string; time: string; stage: string; highlight?: boolean }
+const SCHEDULE = scheduleData as Record<string, ScheduleEntry[]>
+
+function getSchedule(id: string): ScheduleEntry[] {
   if (SCHEDULE[id]) return SCHEDULE[id]
   const s = getStadium(id)
   if (!s) return []
   return Array.from({ length: s.matches }, (_, i) => ({
     teams: 'TBD  vs  TBD',
-    date: `TBD`,
+    date: 'TBD',
     time: 'TBD',
     stage: `Match ${i + 1}`,
     highlight: i === 0,
   }))
 }
 
-export default function StadiumPage({ params }: { params: { id: string } }) {
+export default async function StadiumPage({ params }: { params: { id: string } }) {
   const stadium = getStadium(params.id)
   if (!stadium) notFound()
 
   const schedule = getSchedule(params.id)
+  const spots = await getSpotsByCategory(params.id).catch(() => ({}))
 
   const infoCards = [
     ['NEAREST AIRPORT', stadium.airport, '#0061B2'],
@@ -74,8 +60,6 @@ export default function StadiumPage({ params }: { params: { id: string } }) {
         <Logo size={18} />
         <div className="hand" style={{ fontSize: 18, color: '#4a4a4a' }}>/ {stadium.name}</div>
         <div style={{ flex: 1 }} />
-        <button className="btn-sketch" style={{ fontSize: 16 }}>Share</button>
-        <button className="btn-sketch solid" style={{ fontSize: 16 }}>Save trip</button>
       </nav>
 
       {/* Hero — full-bleed */}
@@ -176,7 +160,7 @@ export default function StadiumPage({ params }: { params: { id: string } }) {
         </section>
 
         {/* 3 · Spots nearby */}
-        <SpotsSection />
+        <SpotsSection spots={spots} />
       </div>
 
     </div>

@@ -9,7 +9,9 @@ const FIELD_MASK = [
   'places.formattedAddress',
   'places.location',
   'places.rating',
+  'places.userRatingCount',
   'places.priceLevel',
+  'places.primaryType',
   'places.currentOpeningHours.openNow',
   'places.websiteUri',
 ].join(',');
@@ -27,13 +29,14 @@ export type SearchPlacesOptions = {
   center: LatLng;
   radiusM: number;
   maxResults?: number;
+  includedType?: string;
 };
 
 export async function searchPlacesNear(opts: SearchPlacesOptions): Promise<Place[]> {
   const apiKey = process.env.GOOGLE_MAPS_API_KEY;
   if (!apiKey) throw new Error('GOOGLE_MAPS_API_KEY is not set');
 
-  const body = {
+  const body: Record<string, unknown> = {
     textQuery: opts.textQuery,
     maxResultCount: opts.maxResults ?? 10,
     locationBias: {
@@ -43,6 +46,7 @@ export async function searchPlacesNear(opts: SearchPlacesOptions): Promise<Place
       },
     },
   };
+  if (opts.includedType) body.includedType = opts.includedType;
 
   const res = await fetch(PLACES_ENDPOINT, {
     method: 'POST',
@@ -67,10 +71,44 @@ type PlacesApiPlace = {
   formattedAddress?: string;
   location?: { latitude: number; longitude: number };
   rating?: number;
+  userRatingCount?: number;
   priceLevel?: string;
+  primaryType?: string;
   currentOpeningHours?: { openNow?: boolean };
   websiteUri?: string;
 };
+
+export type RawPlace = PlacesApiPlace;
+
+// Like searchPlacesNear but returns the raw Place API objects so callers can
+// read fields (primaryType, userRatingCount) that the normalized Place omits.
+export async function searchPlacesRaw(opts: SearchPlacesOptions): Promise<RawPlace[]> {
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+  if (!apiKey) throw new Error('GOOGLE_MAPS_API_KEY is not set');
+  const body: Record<string, unknown> = {
+    textQuery: opts.textQuery,
+    maxResultCount: opts.maxResults ?? 10,
+    locationBias: {
+      circle: {
+        center: { latitude: opts.center.lat, longitude: opts.center.lng },
+        radius: Math.min(opts.radiusM, 50_000),
+      },
+    },
+  };
+  if (opts.includedType) body.includedType = opts.includedType;
+  const res = await fetch(PLACES_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Goog-Api-Key': apiKey,
+      'X-Goog-FieldMask': FIELD_MASK,
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`Places API ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  const data = (await res.json()) as { places?: PlacesApiPlace[] };
+  return data.places ?? [];
+}
 
 function toPlace(p: PlacesApiPlace): Place {
   return {

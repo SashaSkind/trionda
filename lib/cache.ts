@@ -41,10 +41,14 @@ export class TTLCache<K, V> {
 }
 
 export function intentCacheKey(stadiumSlug: string, intent: Intent): string {
-  // Stable hash over the dimensions that change retrieval results.
+  // Stable hash over the dimensions that change retrieval results. We include
+  // a normalized version of the raw user query so that two questions with the
+  // same vibe_tags (e.g. "tacos" and "ramen" both → ['food']) still get
+  // distinct cache entries.
   const vibes = [...intent.vibe_tags].sort().join(',');
   const tw = intent.time_window ? `${intent.time_window.start}-${intent.time_window.end}` : '';
-  const composite = `${stadiumSlug}::${vibes}::${tw}::${intent.radius_m}::${intent.date ?? ''}`;
+  const rawNorm = intent.raw.toLowerCase().replace(/\s+/g, ' ').trim();
+  const composite = `${stadiumSlug}::${vibes}::${tw}::${intent.radius_m}::${intent.date ?? ''}::${rawNorm}`;
   return createHash('sha1').update(composite).digest('hex').slice(0, 16);
 }
 

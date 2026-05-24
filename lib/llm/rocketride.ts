@@ -165,8 +165,13 @@ export async function synthesizeViaRocketRide(prompt: string): Promise<Synthesiz
     q.addQuestion(prompt);
     const response = await session.client.chat({ token: session.token, question: q });
     const answer = response.answers?.[0];
-    const text = typeof answer === 'string' ? answer : JSON.stringify(answer ?? '');
-    if (!text) return { ok: false, reason: 'empty answer from pipeline' };
+    if (answer == null) return { ok: false, reason: 'pipeline returned no answer' };
+    const text = typeof answer === 'string' ? answer : JSON.stringify(answer);
+    // Treat empty / whitespace-only / JSON-stringified empty as failure so the
+    // caller falls back to direct Gemini instead of caching a broken response.
+    if (!text || !text.trim() || text === '""') {
+      return { ok: false, reason: 'empty answer from pipeline' };
+    }
     return { ok: true, text };
   } catch (err) {
     const reason = err instanceof Error ? err.message : String(err);
