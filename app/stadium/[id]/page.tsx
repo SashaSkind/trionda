@@ -48,7 +48,7 @@ export default async function StadiumPage({ params }: { params: { id: string } }
   return (
     <div style={{ background: '#fbf7ee', minHeight: '100vh' }}>
       {/* Sticky nav */}
-      <nav style={{
+      <nav className="stadium-nav" style={{
         position: 'sticky', top: 0, zIndex: 20,
         padding: '18px 32px',
         display: 'flex', alignItems: 'center', gap: 16,
@@ -58,12 +58,12 @@ export default async function StadiumPage({ params }: { params: { id: string } }
       }}>
         <Link href="/" className="btn-sketch" style={{ padding: '4px 14px', fontSize: 16 }}>← Map</Link>
         <Logo size={18} />
-        <div className="hand" style={{ fontSize: 18, color: '#4a4a4a' }}>/ {stadium.name}</div>
+        <div className="hand nav-stadium-name" style={{ fontSize: 18, color: '#4a4a4a' }}>/ {stadium.name}</div>
         <div style={{ flex: 1 }} />
       </nav>
 
       {/* Hero — full-bleed */}
-      <div style={{ position: 'relative', width: '100%', height: 640, overflow: 'hidden' }}>
+      <div className="stadium-hero" style={{ position: 'relative', width: '100%', height: 640, overflow: 'hidden' }}>
         {/* Aerial stadium photo */}
         <Image
           src={stadium.image}
@@ -81,7 +81,7 @@ export default async function StadiumPage({ params }: { params: { id: string } }
         }} />
 
         {/* Hero copy */}
-        <div style={{
+        <div className="stadium-hero-footer" style={{
           position: 'absolute', left: 32, bottom: 32, right: 32, color: 'white',
           display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
         }}>
@@ -89,10 +89,10 @@ export default async function StadiumPage({ params }: { params: { id: string } }
             <div className="print" style={{ fontSize: 14, letterSpacing: 3, color: 'white', opacity: 0.85 }}>
               HOST CITY · {String(STADIUMS.findIndex(s => s.id === params.id) + 1).padStart(2, '0')} OF {STADIUMS.length}
             </div>
-            <div className="hand" style={{ fontSize: 72, fontWeight: 700, lineHeight: 0.95, textShadow: '2px 2px 0 #15171a' }}>
+            <div className="hand" style={{ fontSize: 'clamp(36px, 10vw, 72px)', fontWeight: 700, lineHeight: 0.95, textShadow: '2px 2px 0 #15171a' }}>
               {stadium.name}
             </div>
-            <div className="hand" style={{ fontSize: 28, opacity: 0.95, textShadow: '1px 1px 0 #15171a' }}>
+            <div className="hand" style={{ fontSize: 'clamp(18px, 4vw, 28px)', opacity: 0.95, textShadow: '1px 1px 0 #15171a' }}>
               {stadium.flag} {stadium.city} · {stadium.cap.toLocaleString()} seats
             </div>
             {stadium.isFinal && (
@@ -106,14 +106,14 @@ export default async function StadiumPage({ params }: { params: { id: string } }
               </div>
             )}
           </div>
-          <div style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>
+          <div className="stadium-hero-stats" style={{ display: 'flex', gap: 24, alignItems: 'flex-end' }}>
             {[
               [String(stadium.matches), 'matches'],
               [stadium.airport.split('·')[0].trim(), 'nearest airport'],
               [stadium.timezone.split('(')[0].trim(), stadium.timezone.split('(')[1]?.replace(')', '') || 'timezone'],
             ].map(([big, small]) => (
               <div key={big} style={{ textShadow: '1px 1px 0 #15171a', textAlign: 'center' }}>
-                <div className="hand" style={{ fontSize: 48, fontWeight: 700, lineHeight: 1 }}>{big}</div>
+                <div className="hand" style={{ fontSize: 'clamp(28px, 6vw, 48px)', fontWeight: 700, lineHeight: 1 }}>{big}</div>
                 <div className="print" style={{ fontSize: 13 }}>{small}</div>
               </div>
             ))}
@@ -122,7 +122,7 @@ export default async function StadiumPage({ params }: { params: { id: string } }
       </div>
 
       {/* Body */}
-      <div style={{ padding: '48px 80px 160px', maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 56 }}>
+      <div className="stadium-body" style={{ padding: '48px 80px 160px', maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 56 }}>
 
         {/* 1 · Match schedule */}
         <section>
@@ -132,7 +132,7 @@ export default async function StadiumPage({ params }: { params: { id: string } }
           <div className="print" style={{ fontSize: 14, color: '#8b8b8b', marginBottom: 18 }}>
             all kickoff times in {stadium.timezone}
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <div className="stadium-schedule-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             {schedule.map((m, i) => (
               <ScheduleCard key={i} {...m} />
             ))}
@@ -144,11 +144,11 @@ export default async function StadiumPage({ params }: { params: { id: string } }
           <div className="hand" style={{ fontSize: 36, fontWeight: 700, marginBottom: 4 }}>
             About {stadium.city.split('/')[0].trim()} <span className="squiggle">&amp; the region</span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 32, alignItems: 'flex-start', marginTop: 14 }}>
+          <div className="stadium-about-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 32, alignItems: 'flex-start', marginTop: 14 }}>
             <p className="print" style={{ fontSize: 18, lineHeight: 1.7, color: '#15171a', margin: 0 }}>
               {stadium.about}
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <div className="stadium-info-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
               {infoCards.map(([label, value, color]) => (
                 <div key={label} className="ink-box" style={{ padding: '10px 14px', background: 'white' }}>
                   <div className="print" style={{ fontSize: 11, letterSpacing: 1.5, color }}>{label}</div>

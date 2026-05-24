@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Caveat, Kalam, Patrick_Hand, Architects_Daughter } from 'next/font/google'
 import './globals.css'
 import ChatAgent from '@/components/ChatAgent'
@@ -27,9 +27,20 @@ const architectsDaughter = Architects_Daughter({
   display: 'swap',
 })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
+
 export const metadata: Metadata = {
-  title: 'Trionda Assist — World Cup 2026 Travel Companion',
+  title: 'trionda assist',
   description: '16 stadiums. 3 countries. 1 tournament. Find your perfect World Cup match day.',
+  appleWebApp: {
+    capable: true,
+    title: 'trionda assist',
+    statusBarStyle: 'default',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

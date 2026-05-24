@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { STADIUMS } from '@/lib/stadiums'
+import { useIsMobile } from '@/lib/hooks'
 
 const TRI = {
   ink: '#15171a', inkSoft: '#4a4a4a', inkFaint: '#8b8b8b',
@@ -124,6 +125,7 @@ type FabState = 'idle' | 'thinking' | 'answered'
 
 export default function ChatAgent() {
   const pathname = usePathname()
+  const isMobile = useIsMobile()
   const [open, setOpen] = useState(false)
   const [fabState, setFabState] = useState<FabState>('idle')
   const [messages, setMessages] = useState<Message[]>([])
@@ -276,8 +278,14 @@ export default function ChatAgent() {
       {/* Floating chat panel */}
       {open && (
         <div style={{
-          position: 'fixed', bottom: 100, right: 26, zIndex: 50,
-          width: 420, height: 540,
+          position: 'fixed',
+          bottom: isMobile ? 'max(88px, calc(env(safe-area-inset-bottom) + 72px))' : 100,
+          left: isMobile ? 16 : undefined,
+          right: isMobile ? 16 : 26,
+          zIndex: 50,
+          width: isMobile ? 'calc(100vw - 32px)' : 420,
+          maxWidth: isMobile ? 'calc(100vw - 32px)' : 420,
+          height: isMobile ? 'min(70vh, 520px)' : 540,
           background: 'white', border: `2.4px solid ${TRI.ink}`, borderRadius: 14,
           boxShadow: `6px 6px 0 ${TRI.ink}`,
           display: 'flex', flexDirection: 'column', overflow: 'hidden',
@@ -305,7 +313,8 @@ export default function ChatAgent() {
             <button
               onClick={() => setOpen(false)}
               className="btn-sketch"
-              style={{ padding: '0 8px', fontSize: 14, height: 26 }}
+              style={{ padding: '0 12px', fontSize: 14, minHeight: 44, minWidth: 44 }}
+              aria-label="Close chat"
             >
               ✕
             </button>
@@ -407,14 +416,21 @@ export default function ChatAgent() {
       {/* FAB — combined pill button */}
       <button
         onClick={() => setOpen(o => !o)}
+        className="safe-bottom-fab"
         style={{
-          position: 'fixed', bottom: 26, right: 26, zIndex: 50,
+          position: 'fixed',
+          bottom: isMobile ? 'max(16px, env(safe-area-inset-bottom))' : 26,
+          right: isMobile ? 16 : 26,
+          zIndex: 50,
           display: 'flex', alignItems: 'center', gap: 10,
           background: TRI.green, border: `2.4px solid ${TRI.ink}`,
-          borderRadius: 999, padding: '10px 20px 10px 14px',
+          borderRadius: 999,
+          padding: isMobile ? '12px 16px 12px 12px' : '10px 20px 10px 14px',
           boxShadow: `3px 3px 0 ${TRI.ink}`,
           cursor: 'pointer', transition: 'transform 0.15s',
+          minHeight: 48,
         }}
+        aria-label={fabLabel}
       >
         {fabState === 'thinking' ? (
           <span className="hand" style={{ fontSize: 22, color: 'white', lineHeight: 1 }}>...</span>
